@@ -1,6 +1,8 @@
 
 # [PiglyAgency](https://piglyagency.fr/)
 
+### [English Version of the ReadMe](https://github.com/Martial4034/PiglyAgency/blob/main/EN-ReadMe.md)
+
 Boostez la visibilité de votre restaurant avec **PiglyAgency**, une solution innovante qui exploite la puissance de **Google My Business** et les avis clients pour **augmenter vos revenus**.
 
 **Ce dépôt contient l’ensemble du code source pour le site web multi-tenant de PiglyAgency, incluant tous les modules nécessaires pour une gestion complète et automatisée**:
