@@ -14,9 +14,9 @@ Boostez la visibilité de votre restaurant avec **PiglyAgency**, une solution in
 	- Jeux-Backend : Backend pour les jeux et les interactions utilisateurs.
 	- RedirectionShortURL : Service de redirection d’URL courte pour optimiser.
 
-Pour info, [PiglyAgency](https://piglyagency.fr/) c'est : 
+Pour info, [PiglyAgency](https://piglyagency.fr/) c'est + de : 
 
- + la visibilité de votre établissement boostée (sans utiliser la publicité, les réseaux sociaux, Groupon) 
+ + visibilité de votre établissement boostée (sans utiliser la publicité, les réseaux sociaux, Groupon) 
 
  + des nouveaux clients chaque jours 
 
@@ -27,6 +27,7 @@ Pour info, [PiglyAgency](https://piglyagency.fr/) c'est :
  + une meilleure connaissance de sa clientèle 
 
  = un CA qui augmente significativement sur le long therme 
+ 
 Visitez notre site web pour plus d’informations : [PiglyAgency.fr](https://piglyagency.fr/)
 Suivez-nous sur LinkedIn : [Pigly Agency sur LinkedIn](https://www.linkedin.com/company/pigly-agency/posts/?feedView=all)
 
@@ -40,7 +41,7 @@ Coté utilisateur qui déjeune dans le restaurant en question :
 - il gagne un cadeau (probabilité/validité/condition choisi par le restaurateur)
 - il reçoit par SMS son lien de Qr-Code
 
- <img src="https://i.imgur.com/CLCwxJn.gif" width="530" height="960" alt="Gif, montrant le fonctionnement de la roue">
+ <img src="https://i.imgur.com/CLCwxJn.mp4" width="530" height="960" alt="Gif, Experience Utilisateur">
 
 Le restaurant gagne des avis, donc de la visibilité, mais aussi fait revenir ses clients grâce aux cadeaux qu'il distribue. Enfin il peux avoir la data de la rentabilité de la campagne grâce à son accès à son Pannel-Admin.
   
