@@ -41,8 +41,8 @@ Coté utilisateur qui déjeune dans le restaurant en question :
 - il gagne un cadeau (probabilité/validité/condition choisi par le restaurateur)
 - il reçoit par SMS son lien de Qr-Code
 
- <img src="https://i.imgur.com/CLCwxJn.mp4" width="530" height="960" alt="Gif, Experience Utilisateur">
-
+  [Gif, Experience Utilisateur](https://imgur.com/CLCwxJn)
+  
 Le restaurant gagne des avis, donc de la visibilité, mais aussi fait revenir ses clients grâce aux cadeaux qu'il distribue. Enfin il peux avoir la data de la rentabilité de la campagne grâce à son accès à son Pannel-Admin.
   
   <img src="https://i.imgur.com/DqzZxnz.png" width="530" height="960" alt="Slide pdf piglyagency">
