@@ -1,0 +1,332 @@
+:root {
+    --valide-color: #5dc066;
+    --wrong-color: #dd524d;
+    ---error-color: #f84737;
+    --text-color: #253F4E;
+    --white: #ffffff;
+    --footer: #d9d9d9b2;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* erreur */
+.error {
+    background-color: var(---error-color);
+    position: fixed;
+    margin: 10% auto;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 90%;
+    min-height: 45%;
+    max-height: 60%;
+    border-radius: 22px;
+}
+
+.error-404 {
+    margin: 3% auto;
+    height: 70%;
+    width: 80%;
+    margin-left: 6%;
+}
+
+.error-text {
+    position: relative;
+    margin: 3% auto;
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--white);
+    width: 90%;
+    font-size: 19px;
+}
+/* fin erreur */
+
+/* DEBUT DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+.checking {
+    position: fixed;
+    margin: 0 auto;
+    margin-top: 25%;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 90%;
+    height: 30%;
+    border-radius: 22px;
+    background-color: var(--white);
+}
+
+.checking .loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid var(--text-color);
+    width: 60px;
+    height: 60px;
+    margin: 18 auto;
+    animation: rotation 0.7s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+.checking .text-wrapper-pop-up-chargement {
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    top: 0px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #903d2a;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30.8px;
+    white-space: nowrap;
+}
+
+.checking .div-pop-up-chargement {
+    position: relative;
+    margin: 3 auto;
+    width: fit-content;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+@media (max-width: 480px) {
+    .checking {
+        height: 28%;
+    }
+
+    .checking .loader {
+        margin-top: 8%;
+        margin-bottom: 10%;
+    }
+}
+
+/* FIN DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+.page {
+    max-width: 700px;
+    /* Par exemple, une largeur maximale pour votre div */
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h2 {
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #ffffff;
+    font-size: 25px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+p {
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    opacity: 0.6;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+img{
+    padding-bottom: 5%;
+}
+.win-middle-phrase{
+    padding-bottom: 70%;
+}
+h2{
+    padding-bottom: 10%;
+}
+.middle{
+    position: absolute;
+}
+.win-simple{
+    font-size: 17px;
+    margin: 0 auto;
+}
+
+.inline-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espace entre les éléments */
+}
+/* FIN DES CODES DE BASE */
+
+
+/* DEBUT DU CODE DE #VALID */
+.valid {
+    background-color: var(--valide-color);
+    flex: 1;
+    /* Prend tout l'espace disponible, repoussant le pied de page vers le bas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Espacement autour du contenu */
+}
+
+.top,
+.bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centre le contenu horizontalement */
+    gap: 6px;
+    /* Espace entre les éléments */
+}
+
+/* Centre le texte "Ce cadeau est validé" horizontalement et verticalement */
+.win-validity-true {
+    text-align: center;
+}
+
+.inline-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Espace entre les éléments */
+}
+
+.bottom .win-by,
+.bottom .win-condition {
+    margin-right: 0;
+    /* Retirez la marge à droite puisque nous utilisons maintenant gap */
+    font-size: 17px;
+}
+/* element souligné */
+.souligne{
+    text-decoration: underline;
+    color: var(--white);
+    font-size: 16px;
+}
+/* FIN DU CODE DE #VALID */
+
+
+/* DEBUT DU CODE DE #WRONG */
+.wrong {
+    background-color: var(--wrong-color);
+    flex: 1;
+    /* Prend tout l'espace disponible, repoussant le pied de page vers le bas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Espacement autour du contenu */
+}
+
+.date-claim{
+    font-size: 20px;
+}
+.date{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* FIN DU CODE DE #WRONG */
+
+
+
+
+/* DEBUT DU CODE DU FOOTER */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: var(--footer);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer .text-footer-1 {
+    position: relative;
+    width: 130px;
+    top: 10px;
+    left: 10%;
+    font-family: "Overpass-Medium", Helvetica;
+    font-weight: 500;
+    color: #425c5980;
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.footer .group {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 13px;
+    left: 202px;
+    border-radius: 2px;
+}
+
+.footer .overlap-group {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    top: -8px;
+    left: 49%;
+    background-image: url(./footer-logo.svg);
+    background-size: 100% 100%;
+}
+
+.footer .text-footer-2 {
+    position: relative;
+    width: 89px;
+    top: -110%;
+    left: 56%;
+    font-family: "Aclonica-Regular", Helvetica;
+    font-weight: 400;
+    color: #425c5980;
+    font-size: 13px;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* FIN DU CODE DU FOOTER */
+@media (max-width: 480px) {
+    #winning-message {
+        font-size: 2rem;
+    }
+}

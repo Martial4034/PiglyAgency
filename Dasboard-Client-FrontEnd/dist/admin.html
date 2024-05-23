@@ -1,0 +1,757 @@
+<html lang="fr">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pigly Programme Restaurant Augmentation de la visibilité">
+    <title>Admin Pannel</title>
+    
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="/src/assets/admin.css" type="text/css" />
+
+</head>
+
+<body class="bg-dark text-light">
+
+    <div class="page" id="app">
+        <div v-if="page">
+            <!-- DEBUT CODE DE LA LEFTNAVBAR -->
+            <nav id="adminSidebar" class="d-none d-md-block" style="width: 60px;">
+                <div class="sidebar-header">
+                    <button id="toggleButton" class="btn btn-dark" @click="toggleSidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <ul class="list-unstyled components">
+                    <li @click="setCategory('accueil')">
+                        <i class="fas fa-home"></i> <span class="menu-text">Accueil</span>
+                    </li>
+                    <li @click="setCategory('clients')">
+                        <i class="fas fa-users"></i> <span class="menu-text">Clients</span>
+                    </li>
+                    <li @click="setCategory('restaurant')">
+                        <i class="fas fa-utensils"></i> <span class="menu-text">Restaurant</span>
+                    </li>
+                    <li @click="setCategory('logs')">
+                        <i class="fas fa-server"></i> <span class="menu-text">Logs</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span>
+                    </li>
+                </ul>
+                <div class="toggle-theme">
+                    <label class="form-switch">
+                        <input type="checkbox" id="darkModeToggle" v-model="darkMode" @change="toggleDarkMode"
+                            style="display: none;">
+                        <i></i>
+                    </label>
+                </div>
+            </nav>
+            <!-- FIN CODE DE LA LEFTNAVBAR -->
+
+            <!-- Barre de navigation pour mobile -->
+            <nav class="navbar navbar-expand d-md-none">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbar"
+                    aria-controls="mobileNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="mobileNavbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item" @click="setCategory('accueil')">
+                            <a class="nav-link "><i class="fas fa-home"></i> Accueil</a>
+                        </li>
+                        <li class="nav-item" @click="setCategory('clients')">
+                            <a class="nav-link"><i class="fas fa-users"></i> Clients</a>
+                        </li>
+                        <li class="nav-item" @click="setCategory('restaurant')">
+                            <a class="nav-link"><i class="fas fa-utensils"></i> Restaurant</a>
+                        </li>
+                        <li class="nav-item" @click="setCategory('logs')">
+                            <a class="nav-link"><i class="fas fa-server"></i> Logs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link light"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Cartes -->
+            <div :class="{'with-sidebar': sidebarExpanded}">
+                <!-- acceuil -->
+                <div v-if="selectedCategory === 'accueil'">
+                    <div class="container mt-4">
+                        <h2 class="mb-4">Accueil</h2>
+                        <div class="row">
+                            <!-- Première carte -->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3>Activer/Desactiver l'envoi de SMS</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" v-model="smsEnabled">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Deuxième carte -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Client -->
+                <div v-if="selectedCategory === 'clients'">
+                    <div class="container mt-4">
+                        <h2 class="mb-4">Clients</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- Carte client -->
+                                    <div class="col-md-4">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Client 1</h5>
+                                                <p class="card-text">Détails du client.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Autre carte client -->
+                                    <!-- ... -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="selectedCategory === 'restaurant'">
+                    <div class="container-fluid">
+                        <div class="row justify-content-end"
+                            style="margin-left: 60px;margin-right: 120px;margin-top: 30px;">
+                            <!-- Div Container -->
+                            <div class="col-12 col-lg-8">
+                                <div class="container mt-4">
+                                    <h2 class="mb-4">Restaurant</h2>
+                                    <!-- Affichage du tableau de restaurants ou des détails -->
+                                    <div class="card">
+                                        <!-- Recherche et bouton ajouter -->
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <input type="search" class="form-control w-50"
+                                                placeholder="Rechercher un restaurant...">
+                                            <button class="btn btn-primary"
+                                                @click="showForm = !showForm">Ajouter</button>
+                                        </div>
+                                        <!-- Formulaire d'ajout d'un restaurant -->
+
+                                        <!-- Bouton pour afficher le formulaire -->
+                                        <div v-if="showForm" class="mt-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <!-- Flèche de retour -->
+                                                    <button class="btn btn-secondary mb-3" v-if="showForm"
+                                                        @click="showForm = false">
+                                                        <i class="fa fa-arrow-left"></i> Retour
+                                                    </button>
+                                                    <form @submit.prevent="addRestaurant">
+                                                        <!-- Nom du restaurant -->
+                                                        <div class="mb-3">
+                                                            <label for="restaurantName" class="form-label">Nom du
+                                                                restaurant</label>
+                                                            <input type="text" id="restaurantName"
+                                                                v-model="newRestaurant['Nom-du-restaurant']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!-- Slogan du restaurant -->
+                                                        <div class="mb-3">
+                                                            <label for="slogan" class="form-label">Slogan du
+                                                                restaurant</label>
+                                                            <input type="text" id="restaurantSlogan"
+                                                                v-model="newRestaurant['slogan']" class="form-control">
+                                                        </div>
+                                                        <!--  preposition-slogan -->
+                                                        <div class="mb-3">
+                                                            <label for="preposition-slogan"
+                                                                class="form-label">Preposition-slogan</label>
+                                                            <input type="text" id="preposition-slogan"
+                                                                v-model="newRestaurant['preposition-slogan']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!--   Simple-nom-du-restaurant -->
+                                                        <div class="mb-3">
+                                                            <label for="simpleName"
+                                                                class="form-label">Simple-nom-du-restaurant</label>
+                                                            <input type="text" id="simpleName"
+                                                                v-model="newRestaurant['Simple-nom-du-restaurant']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!-- Couleur du slogan -->
+                                                        <div class="mb-3">
+                                                            <label for="colorSlogan" class="form-label">Couleur du
+                                                                Slogan</label>
+                                                            <input type="color" id="colorSelector"
+                                                                v-model="newRestaurant['couleur-slogan']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!-- Cadeaux dynamiques -->
+                                                        <div v-for="index in giftFieldsCount" :key="index" class="mb-3">
+                                                            <!-- Cadeau -->
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label :for="'gift' + index"
+                                                                        class="form-label">Cadeau {{ index
+                                                                        }}</label>
+                                                                    <input type="text" :id="'gift' + index"
+                                                                        v-model="newRestaurant['cadeau' + index]"
+                                                                        class="form-control"
+                                                                        placeholder="1 verre de vin..">
+                                                                </div>
+
+                                                                <!-- Probabilité -->
+                                                                <div class="col">
+                                                                    <label :for="'probability' + index"
+                                                                        class="form-label">Probabilité
+                                                                        {{ index }}</label>
+                                                                    <input type="number" :id="'probability' + index"
+                                                                        v-model="newRestaurant['probabilite' + index]"
+                                                                        class="form-control"
+                                                                        placeholder="Entre 0 et 1 total:1">
+                                                                </div>
+
+                                                                <!-- Condition Cadeau -->
+                                                                <div class="col">
+                                                                    <label :for="'condition' + index"
+                                                                        class="form-label">Condition
+                                                                        Cadeau {{ index }}</label>
+                                                                    <input type="text" :id="'condition' + index"
+                                                                        v-model="newRestaurant['condition-cadeau' + index]"
+                                                                        class="form-control"
+                                                                        placeholder="10€, 20€, aucune contition?">
+                                                                </div>
+                                                                <!-- Validité du Cadeau -->
+                                                                <div class="col">
+                                                                    <label :for="'validity' + index"
+                                                                        class="form-label">Validité du
+                                                                        Cadeau {{ index }}</label>
+                                                                    <select :id="'validity' + index"
+                                                                        v-model="newRestaurant['cadeau' + index + '-validite']"
+                                                                        class="form-control">
+                                                                        <option value="next">Maintenant</option>
+                                                                        <option value="now">Plus tard</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Nouveaux champs pour les couleurs -->
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <label :for="'colorSegment' + index"
+                                                                        class="form-label">Couleur
+                                                                        de
+                                                                        fond {{ index }}</label>
+                                                                    <input type="color" :id="'colorSegment' + index"
+                                                                        v-model="newRestaurant['couleur-segment' + index]"
+                                                                        class="form-control">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label :for="'textColorSegment' + index"
+                                                                        class="form-label">Couleur
+                                                                        du texte {{ index }}</label>
+                                                                    <input type="color" :id="'textColorSegment' + index"
+                                                                        v-model="newRestaurant['couleur-texte-segment' + index]"
+                                                                        class="form-control">
+                                                                </div>
+
+
+                                                                <!-- Aperçu des couleurs -->
+                                                                <div class="col" style="margin-top: 30px;">
+                                                                    <div
+                                                                        :style="{backgroundColor: newRestaurant['couleur-segment' + index], color: newRestaurant['couleur-texte-segment' + index]}">
+                                                                        Aperçu
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <button @click.prevent="addGiftField"
+                                                            class="btn btn-outline-primary mb-3">Ajouter
+                                                            un cadeau</button>
+                                                        <button @click.prevent="removeGiftField"
+                                                            class="btn btn-outline-danger mb-3">Supprimer un
+                                                            cadeau</button>
+
+                                                        <!-- Couleur du Sélecteur -->
+                                                        <div class="mb-3">
+                                                            <label for="colorSelector" class="form-label">Couleur du
+                                                                Sélecteur</label>
+                                                            <input type="color" id="colorSelector"
+                                                                v-model="newRestaurant['couleur-selecteur']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!-- Couleur du BOUTon -->
+                                                        <div class="mb-3">
+                                                            <label for="colorBouton" class="form-label">Couleur du
+                                                                Bouton</label>
+                                                            <input type="color" id="colorBouton"
+                                                                v-model="newRestaurant['couleur-bouton']"
+                                                                class="form-control">
+                                                        </div>
+                                                        <!-- Lien de redirection GOOGLE -->
+                                                        <div class="mb-3">
+                                                            <label for="googleLink" class="form-label">Code de
+                                                                GOOGLE
+                                                                Analytics</label>
+                                                            <input type="text" id="googleLink"
+                                                                v-model="newRestaurant['google-analytics-id']" class="form-control"
+                                                                placeholder="Entrez le code, exemple: G-SFDCWDQ451"
+                                                                @input="processGooglePageInput">
+                                                        </div>
+                                                        <!-- Lien de redirection GOOGLE -->
+                                                        <div class="mb-3">
+                                                            <label for="googleLink" class="form-label">Code de
+                                                                redirection GOOGLE
+                                                                Page</label>
+                                                            <input type="text" id="googleLink"
+                                                                v-model="newRestaurant.googlePage" class="form-control"
+                                                                placeholder="Entrez le code, par exemple: CTmtAFQt2LGpEBE"
+                                                                @input="processGooglePageInput">
+                                                        </div>
+
+                                                        <!-- Champ Telephone ID -->
+                                                        <div class="mb-3">
+                                                            <label for="telephoneId" class="form-label">Telephone
+                                                                ID</label>
+                                                            <input type="text" id="telephoneId"
+                                                                v-model="newRestaurant.sender" class="form-control"
+                                                                maxlength="13" placeholder="max13caracter"
+                                                                @input="newRestaurant.sender = newRestaurant.sender.replace(/\s+/g, '')">
+                                                        </div>
+                                                        <!-- Verbe du formulaire -->
+                                                        <div class="mb-3">
+                                                            <label for="verbe-du-formulaire" class="form-label">
+                                                                Verbe du formulaire
+                                                            </label>
+                                                            <input type="text" id="verbe-du-formulaire"
+                                                                v-model="newRestaurant['verbe-du-formulaire']" class="form-control"
+                                                                placeholder="occupent ou occupent ?">
+                                                        </div>
+                                                        <!-- Image de fond du Header -->
+                                                        <div class="custom-file mb-3">
+                                                            <input type="file" class="form-control"
+                                                                id="customHeaderImage" ref="headerImageInput"
+                                                                @change="handleHeaderImageChange">
+                                                            <label for="customHeaderImage"
+                                                                class="form-label important">Ajouter une image de fond
+                                                                au header</label>
+                                                        </div>
+                                                        <!-- Logo -->
+                                                        <div class="custom-file mb-3">
+                                                            <input type="file" class="form-control" id="customFile"
+                                                                ref="imageInput" @change="handleImageChange">
+                                                            <label for="customFile" class="form-label important">Ajouter
+                                                                un logo au restaurant</label>
+                                                        </div>
+                                                        
+                                                        
+                                                        <button type="submit" class="btn btn-primary">Ajouter le
+                                                            restaurant</button>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Liste des restaurants -->
+                                        <div v-if="!showForm">
+                                            <ul class="list-group list-restaurants" v-if="!selectedRestaurant">
+                                                <li class="list-group-item" v-for="restaurant in restaurants"
+                                                    @click="selectRestaurant(restaurant)">
+                                                    {{ restaurant['Nom-du-restaurant'] }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Détails du restaurant -->
+                                        <div class="card-body details-restaurant" v-if="selectedRestaurant">
+                                            <!-- Flèche de retour -->
+                                            <button class="btn btn-secondary mb-3" v-if="selectedRestaurant"
+                                                @click="backToRestaurants">
+                                                <i class="fa fa-arrow-left"></i> Retour
+                                            </button>
+                                            <form @submit.prevent="updateRestaurant">
+                                                 <!-- Nom du restaurant -->
+                                                 <div class="mb-3">
+                                                    <label for="restaurantName" class="form-label">Nom du
+                                                        restaurant</label>
+                                                    <input type="text" id="restaurantName"
+                                                        v-model="selectedRestaurant['Nom-du-restaurant']"
+                                                        class="form-control">
+                                                </div>
+                                                <!-- Slogan du restaurant -->
+                                                <div class="mb-3">
+                                                    <label for="slogan" class="form-label">Slogan du
+                                                        restaurant</label>
+                                                    <input type="text" id="restaurantSlogan"
+                                                        v-model="selectedRestaurant['slogan']" class="form-control">
+                                                </div>
+                                                <!--  preposition-slogan -->
+                                                <div class="mb-3">
+                                                    <label for="preposition-slogan"
+                                                        class="form-label">Preposition-slogan</label>
+                                                    <input type="text" id="preposition-slogan"
+                                                        v-model="selectedRestaurant['preposition-slogan']"
+                                                        class="form-control">
+                                                </div>
+                                                <!--   Simple-nom-du-restaurant -->
+                                                <div class="mb-3">
+                                                    <label for="simpleName"
+                                                        class="form-label">Simple-nom-du-restaurant</label>
+                                                    <input type="text" id="simpleName"
+                                                        v-model="selectedRestaurant['Simple-nom-du-restaurant']"
+                                                        class="form-control">
+                                                </div>
+                                                <!-- Couleur du slogan -->
+                                                <div class="mb-3">
+                                                    <label for="colorSlogan" class="form-label">Couleur du
+                                                        Slogan</label>
+                                                    <input type="color" id="colorSelector"
+                                                        v-model="selectedRestaurant['couleur-slogan']"
+                                                        class="form-control">
+                                                </div>
+                                                <!-- Cadeaux dynamiques -->
+                                                <div v-for="index in giftFieldsCount" :key="index" class="mb-3">
+                                                    <!-- Cadeau -->
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label :for="'gift' + index"
+                                                                class="form-label">Cadeau {{ index
+                                                                }}</label>
+                                                            <input type="text" :id="'gift' + index"
+                                                                v-model="selectedRestaurant['cadeau' + index]"
+                                                                class="form-control"
+                                                                placeholder="1 verre de vin..">
+                                                        </div>
+
+                                                        <!-- Probabilité -->
+                                                        <div class="col">
+                                                            <label :for="'probability' + index"
+                                                                class="form-label">Probabilité
+                                                                {{ index }}</label>
+                                                            <input type="number" :id="'probability' + index"
+                                                                v-model="selectedRestaurant['probabilite' + index]"
+                                                                class="form-control"
+                                                                placeholder="Entre 0 et 1 total:1">
+                                                        </div>
+
+                                                        <!-- Condition Cadeau -->
+                                                        <div class="col">
+                                                            <label :for="'condition' + index"
+                                                                class="form-label">Condition
+                                                                Cadeau {{ index }}</label>
+                                                            <input type="text" :id="'condition' + index"
+                                                                v-model="selectedRestaurant['condition-cadeau' + index]"
+                                                                class="form-control"
+                                                                placeholder="10€, 20€, aucune contition?">
+                                                        </div>
+                                                        <!-- Validité du Cadeau -->
+                                                        <div class="col">
+                                                            <label :for="'validity' + index"
+                                                                class="form-label">Validité du
+                                                                Cadeau {{ index }}</label>
+                                                            <select :id="'validity' + index"
+                                                                v-model="selectedRestaurant['cadeau' + index + '-validite']"
+                                                                class="form-control">
+                                                                <option value="next">Maintenant</option>
+                                                                <option value="now">Plus tard</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Nouveaux champs pour les couleurs -->
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label :for="'colorSegment' + index"
+                                                                class="form-label">Couleur
+                                                                de
+                                                                fond {{ index }}</label>
+                                                            <input type="color" :id="'colorSegment' + index"
+                                                                v-model="selectedRestaurant['couleur-segment' + index]"
+                                                                class="form-control">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label :for="'textColorSegment' + index"
+                                                                class="form-label">Couleur
+                                                                du texte {{ index }}</label>
+                                                            <input type="color" :id="'textColorSegment' + index"
+                                                                v-model="selectedRestaurant['couleur-texte-segment' + index]"
+                                                                class="form-control">
+                                                        </div>
+
+
+                                                        <!-- Aperçu des couleurs -->
+                                                        <div class="col" style="margin-top: 30px;">
+                                                            <div
+                                                                :style="{backgroundColor: selectedRestaurant['couleur-segment' + index], color: selectedRestaurant['couleur-texte-segment' + index]}">
+                                                                Aperçu
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <button @click.prevent="addGiftField"
+                                                    class="btn btn-outline-primary mb-3">Ajouter
+                                                    un cadeau</button>
+                                                <button @click.prevent="removeGiftField"
+                                                    class="btn btn-outline-danger mb-3">Supprimer un
+                                                    cadeau</button>
+
+                                                <!-- Couleur du Sélecteur -->
+                                                <div class="mb-3">
+                                                    <label for="colorSelector" class="form-label">Couleur du
+                                                        Sélecteur</label>
+                                                    <input type="color" id="colorSelector"
+                                                        v-model="selectedRestaurant['couleur-selecteur']"
+                                                        class="form-control">
+                                                </div>
+                                                <!-- Couleur du BOUTon -->
+                                                <div class="mb-3">
+                                                    <label for="colorBouton" class="form-label">Couleur du
+                                                        Bouton</label>
+                                                    <input type="color" id="colorBouton"
+                                                        v-model="selectedRestaurant['couleur-bouton']"
+                                                        class="form-control">
+                                                </div>
+                                                <!-- Lien de redirection GOOGLE -->
+                                                <div class="mb-3">
+                                                    <label for="googleLink" class="form-label">Code de
+                                                        GOOGLE
+                                                        Analytics</label>
+                                                    <input type="text" id="googleLink"
+                                                        v-model="selectedRestaurant['google-analytics-id']" class="form-control"
+                                                        placeholder="Entrez le code, exemple: G-SFDCWDQ451"
+                                                        @input="processGooglePageInput">
+                                                </div>
+                                                <!-- Lien de redirection GOOGLE -->
+                                                <div class="mb-3">
+                                                    <label for="googleLink" class="form-label">Code de
+                                                        redirection GOOGLE
+                                                        Page</label>
+                                                    <input type="text" id="googleLink"
+                                                        v-model="selectedRestaurant.googlePage" class="form-control"
+                                                        placeholder="Entrez le code, par exemple: CTmtAFQt2LGpEBE"
+                                                        @input="processGooglePageInput">
+                                                </div>
+
+                                                <!-- Champ Telephone ID -->
+                                                <div class="mb-3">
+                                                    <label for="telephoneId" class="form-label">Telephone
+                                                        ID</label>
+                                                    <input type="text" id="telephoneId"
+                                                        v-model="selectedRestaurant.sender" class="form-control"
+                                                        maxlength="13" placeholder="max13caracter"
+                                                        @input="selectedRestaurant.sender = selectedRestaurant.sender.replace(/\s+/g, '')">
+                                                </div>
+                                                <!-- Verbe du formulaire -->
+                                                <div class="mb-3">
+                                                    <label for="verbe-du-formulaire" class="form-label">
+                                                        Verbe du formulaire
+                                                    </label>
+                                                    <input type="text" id="verbe-du-formulaire"
+                                                        v-model="selectedRestaurant['verbe-du-formulaire']" class="form-control"
+                                                        placeholder="occupent ou occupent ?">
+                                                </div>
+                                                <!-- Image de fond du Header -->
+                                                <div class="custom-file mb-3">
+                                                    <input type="file" class="form-control"
+                                                        id="customHeaderImage" ref="headerImageInput"
+                                                        @change="handleHeaderImageChange">
+                                                    <label for="customHeaderImage"
+                                                        class="form-label important">Ajouter une image de fond
+                                                        au header</label>
+                                                </div>
+                                                <!-- Logo -->
+                                                <div class="custom-file mb-3">
+                                                    <input type="file" class="form-control" id="customFile"
+                                                        ref="imageInput" @change="handleImageChange">
+                                                    <label for="customFile" class="form-label important">Ajouter
+                                                        un logo au restaurant</label>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                                <button class="btn btn-danger" @click="deleteRestaurant">Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Div iPhone Preview -->
+                            <div class="col-12 col-lg-4">
+                                <div class="iphone-preview p-0 m-0">
+                                    <div id="iphone-content">
+                                        <div class="page">
+                                            <!-- DEBUT DU CODE DU HEADER -->
+                                            <div class="overlap"
+                                                :style="{ backgroundImage: 'url(' + restaurantData['url-header'] + ')' }">
+                                                <p class="offers"
+                                                    v-html="`${restaurantData.restaurantName} ${restaurantData.restaurantSlogan}`">
+                                                </p>
+                                                <img class="header-logo" :src="restaurantData['url-logo-central']"
+                                                    alt="logo central" />
+                                            </div>
+                                            <!-- FIN DU CODE DU HEADER -->
+
+                                            <!-- DEBUT DU CODE SLOGAN DYNAMIQUE -->
+                                            <p class="slogan" :style="{ color: restaurantData['couleurSlogan'] }"
+                                                v-html="`La roue ${restaurantData['preposition-slogan']} ${restaurantData['Simple-nom-du-restaurant']} fait son choix... <br />Préparez-vous à être gâté !`">
+                                            </p>
+                                            <!-- FIN DU CODE SLOGAN DYNAMIQUE -->
+                                            <!-- DEBUT DU CODE POUR LA ROUE -->
+                                            <div class="wheel-container">
+                                                <!-- SELECTEUR -->
+                                                <div class="selecteur" id="selecteur" alt="selecteur">
+                                                    <svg width="107" height="118" viewBox="0 0 107 118" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">≠
+                                                        <g id="Union" filter="url(#filter0_d_589_904)">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M58.1775 14.7913L52.2598 3.26025L46.2019 15.0644C22.4806 18.5086 4.25977 38.9288 4.25977 63.6048C4.25977 90.6954 26.221 112.657 53.3116 112.657C80.4022 112.657 102.363 90.6954 102.363 63.6048C102.363 38.1563 82.9838 17.2341 58.1775 14.7913Z"
+                                                                :fill='restaurantData["couleur-selecteur"]' />
+                                                        </g>
+                                                        <defs>
+                                                            <filter id="filter0_d_589_904" x="0.0402536" y="0.0956199"
+                                                                width="106.543" height="117.835"
+                                                                filterUnits="userSpaceOnUse"
+                                                                color-interpolation-filters="sRGB">
+                                                                <feFlood flood-opacity="0"
+                                                                    result="BackgroundImageFix" />
+                                                                <feColorMatrix in="SourceAlpha" type="matrix"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                                    result="hardAlpha" />
+                                                                <feOffset dy="1.05488" />
+                                                                <feGaussianBlur stdDeviation="2.10976" />
+                                                                <feComposite in2="hardAlpha" operator="out" />
+                                                                <feColorMatrix type="matrix"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                                                <feBlend mode="normal" in2="BackgroundImageFix"
+                                                                    result="effect1_dropShadow_589_904" />
+                                                                <feBlend mode="normal" in="SourceGraphic"
+                                                                    in2="effect1_dropShadow_589_904" result="shape" />
+                                                            </filter>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <img :src="restaurantData['url-logo-central']" class="selecteur logo">
+
+                                                <svg ref="wheelSvg" width="352" height="352"
+                                                    viewBox="-175 -175 350 350">
+                                                    <g class="wheel">
+                                                        <!-- Segments -->
+                                                        <g v-for="(segment, index) in segments"
+                                                            :key="`segment-${index}`">
+                                                            <path :d="getSegmentPath(index)" :fill="segment.color">
+                                                            </path>
+                                                            <path :id="`text-path-${index}`" :d="getTextPath(index)"
+                                                                fill="none" stroke="none"></path>
+                                                            <text font-family="'Inter-Bold', Helvetica">
+                                                                <textPath :href="`#text-path-${index}`"
+                                                                    startOffset="50%" text-anchor="middle"
+                                                                    :fill="segment.textColor" stroke="none">
+                                                                    <tspan
+                                                                        v-for="(line, tspanIndex) in getTspansForSegment(segment.label)"
+                                                                        :key="`tspan-${index}-${tspanIndex}`" :x="0"
+                                                                        :dy="tspanIndex * 20">
+                                                                        {{ line }}
+                                                                    </tspan>
+                                                                </textPath>
+
+                                                            </text>
+                                                        </g>
+                                                        <!-- Lignes de séparation noires -->
+                                                        <g v-for="(segment, index) in segments" :key="`line-${index}`">
+                                                            <line v-if="index < segments.length" :x1="0" :y1="0"
+                                                                :x2="175 * Math.cos(degreesToRadians((index + 0.5) * 360 / segments.length))"
+                                                                :y2="175 * Math.sin(degreesToRadians((index + 0.5) * 360 / segments.length))"
+                                                                stroke="white" stroke-width="3" />
+                                                        </g>
+                                                </svg>
+                                            </div>
+                                            <!-- FIN DU CODE POUR LA ROUE -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="showCard" class="card my-card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Votre site est prêt !</h5>
+                                <a :href="restaurantUrl" target="_blank" class="btn btn-primary btn-sm">
+                                    Visiter le site
+                                </a>
+                                <div id="qrcode" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Options -->
+                    <div v-if="selectedCategory === 'logs'">
+                        <div class="container mt-4">
+                            <h2 class="mb-4">Logs</h2>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Logs:</h5>
+                                    <div id="logs">
+                                        <div v-for="(log, index) in logs" :key="index" class="log-entry">
+                                            <div v-html="log.content"></div>
+                                            <span v-if="log.data" class="details-toggle"
+                                                @click="toggleDetails(index)">&#x25BC;</span>
+                                            <div v-if="log.detailsVisible" class="log-details" v-html="log.data"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notifications -->
+                <div class="toast-container">
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" v-if="showToast">
+                        <div class="toast-header">
+                            <strong class="mr-auto">Notification</strong>
+                            <button type="button" class="btn-close" @click="showToast = false"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ toastMessage }}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- DEBUT DU CODE DU FOOTER -->
+        <footer class="footer" style="display: none;">
+            <p class="text-footer-1">Made with love and coffee by</p>
+            <div class="group-footer">
+                <div class="overlap-group"></div>
+            </div>
+            <div class="text-footer-2">Pigly agency</div>
+        </footer>
+        <!-- FIN DU CODE DU FOOTER -->
+
+        <script type="module" src="/src/assets/admin.js"></script>
+        <!-- JS Bootstrap (avec dépendances) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,534 @@
+:root {
+  --primary-color: #3498db;
+  --error-color: #f84737;
+  --text-color: #253F4E;
+  --slogan-color: #445C78;
+  --white: #ffff;
+  --footer: #d9d9d9b2;
+}
+/* Sidebar Styles */
+#sidebar {
+  background: #FFFFFF; /* Constants.White */
+  box-shadow: 0 10px 30px rgba(229, 233, 246, 0.5); /* Shadow with the specified color and opacity */
+  width: 250px; /* Adjusted to your requirement */
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: all 0.3s;
+  z-index: 1000; /* Ensure it's above other content */
+  padding-top: 20px; /* Space for top padding */
+}
+
+/* Sidebar Header */
+#sidebar .sidebar-header {
+  text-align: center; /* Center the header text */
+  margin-bottom: 30px; /* Space after the header */
+}
+
+#sidebar .sidebar-header h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+}
+/* erreurs */
+.error-p {
+  font-family: "SF Pro Text-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--error-color);
+  font-size: 15px;
+}
+
+/* Sidebar Links */
+#sidebar ul.components {
+  padding: 0;
+}
+
+#sidebar ul li a {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 15px; /* Padding for a tags */
+  color: rgba(145, 150, 178, 1); /* Color for non-active items */
+  transition: color 0.3s, background-color 0.3s;
+  display: flex; /* Align icons and text */
+  align-items: center; /* Align items vertically */
+}
+
+#sidebar ul li a i {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+#sidebar ul li.active > a,
+#sidebar ul li.active > a i {
+  color: #FFFFFF; /* White text for active items */
+  background-color: #6c7ae0; /* Purple background for active items */
+}
+
+/* Toggle Button */
+.btn-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c7ae0;
+  padding: 0 15px;
+}
+
+.btn-toggle:focus {
+  outline: none;
+}
+
+/* Responsive behavior for the sidebar */
+@media (max-width: 768px) {
+  #sidebar {
+    width: 55px; /* Smaller width for smaller screens */
+  }
+
+  #sidebar.active {
+    width: 250px; /* Original width when active */
+  }
+
+  #sidebar .sidebar-header h3,
+  #sidebar ul li a span {
+    display: none; /* Hide text for smaller screens */
+  }
+
+  #sidebar ul li a i {
+    display: block; /* Ensure icons are centered when alone */
+    margin: 0;
+  }
+
+  .btn-toggle {
+    display: block;
+  }
+}
+
+.main-wrapper {
+  margin-left: 250px; /* Adjusted to the width of your sidebar */
+  padding: 20px; /* Spacing inside the main wrapper */
+  transition: margin-left 0.3s; /* Smooth transition for sidebar toggle */
+}
+
+/* General Styles for all Tables in Dashboard */
+.dashboard-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+}
+
+.dashboard-table thead th {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-bottom: 2px solid #e1e1e1;
+}
+
+.dashboard-table tbody td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.dashboard-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+/* Debut Style pour le main Dashboard */
+.chart-section {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.donut-chart-container, .bar-chart-container {
+  position: relative;
+  height: auto;
+  width: 100%;
+}
+
+/* Responsive aspect ratio for Chart.js */
+.dashboard-main-content .chart-container {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.dashboard-main-content .chart-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+@media (max-width: 576px) {
+  .dashboard-main-content  .chart-container {
+    padding-top: 75%; /* Increased padding for a taller chart on small screens */
+  }
+}
+/* Header du Dashboard */
+.custom-filter-selector{
+  padding-bottom: 20px;
+}
+.title-container .title-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.title-container .fa-chart-line {
+  margin-right: 0.5rem;
+  color: #4e73df; /* Adjust the color to match your theme */
+}
+
+/* Custom legend styles if needed */
+.dashboard-main-content  .chart-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Additional styling */
+}
+
+.dashboard-main-content  .chart-legend .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+/* Special CSS for the BarChart */
+.chart-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  width: 100%; /* Adjust this as necessary */
+}
+
+.custom-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-legend .legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.custom-legend .dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.custom-legend .label {
+  min-width: 110px; /* Adjust this as necessary */
+}
+
+.progress-container {
+  position: relative;
+  flex-grow: 1;
+  height: 20px;
+  background-color: #e1e1e6;
+  border-radius: 5px;
+  margin: 0 8px;
+  width: calc(100% - 150px); /* Adjust based on the width of your labels and percentages */
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+
+.progress-background {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.percentage {
+  min-width: 50px; /* Adjust this as necessary */
+}
+/*style pour les cartes contenans les infos des joueurs */
+.row-special{
+  max-width: 75%;
+}
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 0.5px solid #EFEFEF;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 5px;
+}
+
+.stat-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 35px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+}
+/* Style pour le compteur de cadeau dans dashboard main */
+.stat-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(77, 77, 77); /* Converted from your provided color */
+  margin-bottom: 0; /* Remove default margin */
+}
+
+hr {
+  width: 100%;
+  border-top: 0.8px solid #E3E5E8; /* Converted from your provided color */
+}
+
+.stat-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  color: rgb(97, 97, 97); /* Converted from your provided color */
+}
+
+.stat-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+/* Fin Style pour le main Dashboard */
+
+/* DEBUT STYLE POUR Fichier Client */
+.table-controls .table-controls {
+  margin-bottom: 15px; /* Spacing between table controls and the table */
+}
+
+.table-controls .table {
+  width: 100%; /* Full-width table */
+  border-collapse: collapse; /* Collapse borders */
+}
+
+.table-controls .table thead th {
+  background-color: #f8f9fa; /* Light background for the table header */
+  border-bottom: 2px solid #dee2e6; /* Bottom border for header cells */
+}
+
+.table-controls .table tbody td {
+  border-bottom: 1px solid #dee2e6; /* Bottom border for body cells */
+}
+.sort-options {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,.15);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  z-index: 1000; /* To ensure it's above other elements */
+}
+
+.table-hover.rounded {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden; /* To ensure the rounded corners */
+}
+
+.table-hover.rounded th,
+.table-hover.rounded td {
+  border-bottom-width: 1px;
+}
+
+/* Adjust the first and last cell of each row to align with the rounded corners */
+.table-hover.rounded th:first-child,
+.table-hover.rounded td:first-child {
+  border-top-left-radius: 8px;
+}
+
+.table-hover.rounded th:last-child,
+.table-hover.rounded td:last-child {
+  border-top-right-radius: 8px;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa-arrow-up, .fa-arrow-down {
+  animation: rotate 0.5s ease-in-out;
+}
+/* FIN STYLE POUR Fichier Client */
+
+/* DEBUT STYLE POUR Joueurs */
+/* Status Badge Styles */
+.status-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.25rem;
+  color: white;
+  font-weight: bold;
+  font-size: 0.875rem;
+  display: inline-block;
+}
+
+.status-succeeded {
+  background-color: #28a745; /* Green */
+}
+
+.status-failed {
+  background-color: #dc3545; /* Red */
+}
+/* FIN STYLE POUR Joueurs */
+
+/* DEBUT STYLE pour Roulette */
+.card-custom {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Légère ombre pour la carte */
+  padding: 15px;
+  margin-bottom: 15px; /* Espace entre les cartes */
+}
+
+.card-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 20px; /* Espace après le titre */
+}
+
+.card-input {
+  background-color: #F6F7F8;
+  border-radius: 8px;
+  border: 1px solid #D1E3EC;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card-input::placeholder {
+  color: #707070;
+}
+
+.input-group-text {
+  background-color: #F6F7F8;
+  border-radius: 8px;
+  border: 1px solid #D1E3EC;
+  color: black;
+  padding: 5px 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-text.text-muted {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  color: #707070;
+}
+
+
+.select-custom {
+  background-color: #F6F7F8;
+  border-radius: 8px;
+  border: 1px solid #D1E3EC;
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.icon-percentage {
+  font-size: 10px; /* Taille de l'icône */
+  margin-right: 5px; /* Espace entre l'icône et le texte */
+}
+
+/* Ajoutez cette règle si vous avez un élément spécifique pour l'icône */
+.percentage-icon {
+  display: inline-block;
+  width: 12.5px;
+  height: 10px;
+  background-image: url('path-to-your-icon.png'); /* Chemin vers votre icône */
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 5px; /* Espace entre l'icône et le texte */
+}
+
+.iphone-preview {
+  width: 430px; /* Largeur typique d'un iPhone */
+  height: 450px; /* Hauteur typique d'un iPhone */
+  border: 1px solid #ddd; /* Bordure pour la distinction */
+  border-radius: 20px; /* Rayon de la bordure pour l'effet arrondi */
+  margin-top: 20px; /* Espacement au-dessus de l'aperçu */
+  /* ... Autres styles tels que ombres, padding, etc. ... */
+}
+
+@media (max-width: 991px) {
+  .iphone-preview {
+    width: 100%; /* La preview prend toute la largeur sur les petits écrans */
+    height: auto; /* La hauteur est automatique pour conserver le ratio */
+  }
+}
+/* style pour la petite poubelle */
+.custom-btn{
+  position: absolute;
+  right: 20px;
+}
+/* Style pour le live iphone */
+
+.wheel-container {
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  margin-top: 7%;
+  width: 352px;
+  height: 352px;
+}
+/* Sélecteur qui se trouve dans la roue*/
+.selecteur {
+  position: absolute;
+  width: 105px;
+  height: 116px;
+  margin-top: 114px;
+  margin-left: 124px;
+  z-index: 1;
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  margin-top: 143px;
+  margin-left: 143px;
+  position: absolute;
+}
+.custom-btn-add-cdx{
+  margin-top: 10px;
+  margin-left: 25px;
+}
+/* FIN STYLE pour Roulette */
+
+/* Responsive behavior for the main wrapper */
+@media (max-width: 768px) {
+  .main-wrapper {
+    margin-left: 49px; /* Sidebar is collapsed */
+  }
+}

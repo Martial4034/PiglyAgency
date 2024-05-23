@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="./src/assets/login.css">
+</head>
+
+<body>
+  
+  <div class="container">
+    <div class="text">Ravi de vous revoir ici.</div>
+    <form id="login-form" class="main">
+      <input type="email" id="user-email" placeholder="Email" required />
+      <input type="password" id="user-password" placeholder="Mot de passe" required />
+      <button type="submit" class="button" id="login-form-btn">Se connecter</button>
+    </form>
+    <div id="error" class="errorText" style="display: none;"></div> <!-- Élément d'erreur unifié -->
+  </div>
+  <div id="loading" class="loading-overlay" style="display: none;">
+    <div class="loading-spinner"></div>
+  </div>
+
+
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    //import firebase AUTH
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDf74BjgEoVQHCFRSrqKGSvqrbCBveGwmg",
+      authDomain: "jeu-concours-f0a5b.firebaseapp.com",
+      databaseURL: "https://jeu-concours-f0a5b-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "jeu-concours-f0a5b",
+      storageBucket: "jeu-concours-f0a5b.appspot.com",
+      messagingSenderId: "1076049183760",
+      appId: "1:1076049183760:web:d5a55370a0e3923354b695",
+      measurementId: "G-H0VLQJ7QD0"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+
+    //const baseURL = 'http://localhost:3003/';
+    const baseURL = 'https://main.piglyagency.fr/';
+
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const loading = document.getElementById('loading');
+      loading.style.display = 'flex';
+      const errorElement = document.getElementById('error'); 
+      errorElement.style.display = 'none';
+  
+      const email = document.getElementById('user-email').value;
+      const password = document.getElementById('user-password').value;
+  
+      try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const token = await userCredential.user.getIdToken();
+  
+          fetch(baseURL + 'sessionLogin', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ idToken: token }),
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.token && data.isAdmin) {
+                  localStorage.setItem('token', data.token);
+                  localStorage.setItem('restaurantId', data.restaurantId);
+                  loading.style.display = 'none';
+                  window.location.href = '/admin.html';
+              } else if (data.token) {
+                  localStorage.setItem('token', data.token);
+                  localStorage.setItem('restaurantId', data.restaurantId);
+                  loading.style.display = 'none';
+                  window.location.href = '/dashboard2.html';
+              } else {
+                  loading.style.display = 'none';
+                  throw new Error('Authentication failed.');
+              }
+          });
+      } catch (error) {
+          loading.style.display = 'none';
+          errorElement.textContent = error.message; // Affichez le message d'erreur
+          errorElement.style.display = 'block';
+      }
+  });
+  
+  </script>
+</body>
+
+</html>

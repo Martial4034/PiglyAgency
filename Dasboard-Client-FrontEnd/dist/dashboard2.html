@@ -1,0 +1,478 @@
+<html lang="fr">
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <meta charset="UTF-8">
+  <meta name="description" content="Pigly Programme Restaurant Augmentation de la visibilité">
+  <title>PiglyAgency</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
+  <!-- Include Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="./src/assets/dashboard2.css" type="text/css" />
+</head>
+
+<body>
+
+  <div id="app">
+    <!-- Sidebar -->
+    <nav id="sidebar" v-bind:class="{ 'active': sidebarVisible }">
+      <div class="sidebar-header">
+        <button @click="toggleSidebar" class="btn-toggle">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h3>Dashboard v0.1</h3>
+      </div>
+
+      <ul class="list-unstyled components">
+        <li v-for="item in computedMenuItems" :key="item.text" :class="{ 'active': item.active }">
+          <a href="#" @click.prevent="selectMenuItem(item)" class="d-flex align-items-center">
+            <i :class="`fas ${item.icon} fa-lg`"></i>
+            <span>{{ item.text }}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- Bouton de déconnexion -->
+      <div class="sidebar-footer">
+        <button @click="logout" class="btn btn-danger w-75">
+          <i class="fas fa-sign-out-alt"></i> Se déconnecter
+        </button>
+      </div>
+    </nav>
+
+
+    <!-- Main Wrapper -->
+    <div id="main-wrapper" class="main-wrapper">
+      <!-- Header -->
+      <header class="dashboard-header">
+        <!-- Header Content (e.g., breadcrumb, logout, etc.) -->
+        <h1>Bonjour {{ restaurantData['Nom-du-restaurant'] }} 👋</h1>
+
+        <div v-if="selectedSection === 'Dashboard'">
+          <div class="title-container text-center my-4">
+            <h2 class="title-text">
+              <i class="fas fa-chart-line"></i>
+              {{ timeframeTitle }}
+            </h2>
+          </div>
+          <div class="filter-selector custom-filter-selector">
+            <select class="form-select" v-model="selectedTimeframe">
+              <option value="all-time">Depuis tout le temps</option>
+              <option value="this-week">Cette semaine
+              </option>
+              <option value="this-month">Ce mois-ci</option>
+              <option value="last-six-months">Ces 6 derniers mois</option>
+            </select>
+          </div>
+        </div>
+
+
+      </header>
+      <div v-if="alerteVisible" class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ alerteMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+          @click="alerteVisible = false"></button>
+      </div>
+      <!-- Main Content Area -->
+      <main class="dashboard-content">
+        <div v-if="selectedSection === 'Dashboard'">
+          <div class="dashboard-main-content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-9 col-md-5">
+                  <!-- Donut Chart Section -->
+                  <div class="chart-section">
+                    <h2>Cadeaux gagnés</h2>
+                    <div class="donut-chart-container">
+                      <canvas ref="DonutCanvas"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-7">
+                  <!-- Bar Chart Section -->
+                  <div class="chart-section">
+                    <h2>Cadeaux récupérés</h2>
+                    <ul class="custom-legend">
+                      <li v-for="(item, index) in barChartData" :key="index" class="legend-item">
+                        <span class="dot" :style="{backgroundColor: item.color}"></span>
+                        <span class="label">{{ item.label }}</span>
+                        <div class="progress-container">
+                          <div class="progress-bar" :style="{width: item.value + '%', backgroundColor: item.color}">
+                          </div>
+                          <div class="progress-background"></div>
+                        </div>
+                        <span class="percentage">{{ item.value }}%</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- Stats Cards Section -->
+                <div class="row">
+                  <div v-for="stat in stats" class="col-12 col-sm-6 col-md-4 mb-3 row-special ">
+                    <div class="stat-card shadow-sm">
+                      <h3 class="stat-title">{{ stat.title }}</h3>
+                      <p class="stat-number">{{ stat.number }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 col-md-4 mb-3 stat-container rounded shadow-sm bg-white p-3">
+                    <h5 class="stat-title text-muted">Nombre distribués</h5>
+                    <hr class="my-2">
+                    <ul class="list-unstyled">
+                      <li v-for="nbCadeau in nbCadeaux" :key="nbCadeau.title" class="d-flex justify-content-between">
+                        <span class="stat-name">{{ nbCadeau.title }}</span>
+                        <strong class="stat-value">{{ nbCadeau.value }}</strong>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="selectedSection === 'Product'">
+          <h1>Réferencement local</h1>
+          <div v-else>
+            Chargement du réferencement...
+            Desoler cette fonctionnalité n'est pas encore disponible, ...
+          </div>
+        </div>
+        <div v-if="selectedSection === 'Fichier clients'">
+          <!-- Table Controls -->
+          <div class="table-controls d-flex justify-content-between align-items-center">
+            <!-- Filter and Sort Buttons -->
+            <div>
+              <button class="btn btn-light" @click="applyFilter('all')">Filter</button>
+              <!--
+              <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" @mouseenter="openSortOptions" @mouseleave="closeSortOptions">
+                Trier par :
+              </button>
+
+              <div class="dropdown-menu" v-show="showSortOptions" @mouseenter="openSortOptions"
+                @mouseleave="closeSortOptions">
+               
+                <a class="dropdown-item" href="#" @click.prevent="sortTable('prenom')">Prénom</a>
+                <a class="dropdown-item" href="#" @click.prevent="sortTable('dateDeVisite')">Date</a>
+                
+              </div>
+              -->
+            </div>
+
+            <!-- Export and Create Buttons -->
+            <div>
+              <button class="btn btn-light" @click="exportToCSVClients">Export</button>
+              <button class="btn btn-primary" @click="showCreateCustomerForm = true"><i class="fa fa-user-plus"></i>
+                Create Customer</button>
+            </div>
+          </div>
+          <!-- Le formulaire d'ajout d'un simple client -->
+          <div v-if="showCreateCustomerForm" class="modal show d-block" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Create Customer</h5>
+                  <button type="button" class="close" @click="closeForm">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form @submit.prevent="addCustomer">
+                    <div class="form-group">
+                      <label for="customerFirstName">Prénom</label>
+                      <input type="text" class="form-control" id="customerFirstName" v-model="newCustomer.prenom"
+                        required>
+                      <p class="error-p" v-if="formErrors.prenom">{{ formErrors.prenom }}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="customerLastName">Nom</label>
+                      <input type="text" class="form-control" id="customerLastName" v-model="newCustomer.nom" required>
+                      <p class="error-p" v-show="formErrors.nom">{{ formErrors.nom }}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="customerEmail">Email</label>
+                      <input type="email" class="form-control" id="customerEmail" v-model="newCustomer.email" required>
+                      <p class="error-p" v-show="formErrors.email">{{ formErrors.email }}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="customerPhone">Téléphone</label>
+                      <input type="tel" class="form-control" id="customerPhone" v-model="newCustomer.telephone"
+                        required>
+                      <p class="error-p" v-show="formErrors.telephone">{{ formErrors.telephone }}</p>
+                    </div>
+                    <div class="form-group">
+                      <label for="visitDate">Date de Visite</label>
+                      <input type="date" class="form-control" id="visitDate" v-model="newCustomer.dateDeVisite"
+                        required>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="closeForm">Close</button>
+                  <button type="button" class="btn btn-primary" @click="addCustomer">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Overlay for modal -->
+          <div v-if="showCreateCustomerForm" class="modal-backdrop fade show"></div>
+          <!-- User Table -->
+          <table class="table table-hover rounded">
+            <thead>
+              <tr>
+                <th @click="sortTable('prenom')">
+                  Prénom
+                  <i v-if="currentSortColumn === 'prenom'"
+                    :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+                <th @click="sortTable('telephone')">
+                  Téléphone
+                  <i v-if="currentSortColumn === 'telephone'"
+                    :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+                <th @click="sortTable('email')">
+                  Email
+                  <i v-if="currentSortColumn === 'email'"
+                    :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+                <th @click="sortTable('dateDeVisite')">
+                  Date de visite
+                  <i v-if="currentSortColumn === 'dateDeVisite'"
+                    :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in sortedUsers" :key="user.id">
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.telephone }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.dateDeVisite }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="selectedSection === 'Joueurs'">
+          <!-- Filter Buttons -->
+          <div class="filter-group">
+            <button class="btn btn-primary" @click="setFilter('all')">All</button>
+            <button class="btn btn-success" @click="setFilter('Récupérer')">Récupérer</button>
+            <button class="btn btn-danger" @click="setFilter('Pas encore récupérer')">Pas encore récupérer</button>
+          </div>
+
+          <!-- Joueurs Table -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th @click="sortTable('prenom')">Prénom
+                  <i v-if="currentSortColumn === 'prenom'" :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+                <th @click="sortTable('cadeau')">Cadeau
+                  <i v-if="currentSortColumn === 'cadeau'" :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+                <th>Validé</th> <!-- Pas de tri ici car c'est un booléen -->
+                <th @click="sortTable('dateDeVisite')">Date de visite
+                  <i v-if="currentSortColumn === 'dateDeVisite'" :class="sortAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in sortedJoueursUsers" :key="user.id">
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.cadeau }}</td>
+                <td>
+                  <span class="status-badge" :class="{'status-succeeded': !user.valide, 'status-failed': user.valide}">
+                    {{ user.valide ? 'Pas encore récupérer' : 'Récupérer' }}
+                  </span>
+                </td>
+                <td>{{ user.dateDeVisite }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="selectedSection === 'Roulette'">
+          <div class="dashboard-main-content">
+            <div class="container-fluid mt-3">
+              <div class="row">
+                <!-- Colonne de gauche pour les cartes de cadeaux -->
+                <div class="col-lg-8 p-18">
+                  <h2><i class="fa fa-gift"></i>Configuration des cadeaux</h2>
+                  <div class="row">
+                    <div v-for="(index) in nombreDeCadeaux" :key="index" class="col-md-4 mb-3">
+                      <div class="card card-custom">
+                        <div class="card-body">
+                          <!-- Bouton de suppression -->
+                          <button @click="supprimerCadeau(index)" class="btn btn-danger btn-sm custom-btn">
+                            <i class="fa fa-trash"></i> <!-- Icône de poubelle Font Awesome -->
+                          </button>
+                          <h5 class="card-title">Cadeau {{ index }}</h5>
+
+                          <div class="mb-3">
+                            <label :for="'cadeau' + index" class="label-custom">Nom de la récompense</label>
+                            <input :id="'cadeau' + index" type="text" class="form-control card-input"
+                              v-model="restaurantData['cadeau' + index]" placeholder="Nom de la récompense">
+                            <small class="form-text text-muted">
+                              {{ restaurantData['cadeau' + index] ? restaurantData['cadeau' + index].length : 0 }}/23
+                              caractères
+                            </small>
+
+                          </div>
+                          <div class="mb-3">
+                            <label :for="'probabilite' + index" class="label-custom">Probabilité</label>
+                            <div class="input-group">
+                              <input :id="'probabilite' + index" type="number" class="form-control card-input"
+                                v-model="restaurantData['probabilite' + index]">
+                              <span class="input-group-text icon-percentage">%</span>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label :for="'validite-cadeau' + index" class="label-custom">Valable pour une
+                              prochaine visite</label>
+                            <select :id="'validite-cadeau' + index" class="form-control select-custom"
+                              v-model="restaurantData['cadeau' + index + '-validite']">
+                              <option value="">Sélectionnez une option</option>
+                              <option value="next">Valable pour une prochaine visite</option>
+                              <option value="now">Valable tout de suite</option>
+                            </select>
+
+                          </div>
+                          <div class="mb-3">
+                            <label :for="'condition-cadeau' + index" class="label-custom">Condition</label>
+                            <input :id="'condition-cadeau' + index" type="text" class="form-control card-input"
+                              v-model="restaurantData['condition-cadeau' + index]" placeholder="Aucune">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </div>
+                <!-- Colonne de droite pour l'aperçu en direct, ajustez la classe pour contrôler la taille -->
+                <div class="col-md-4 align-middle">
+                  <div class="card iphone-preview">
+                    <div class="card-body">
+                      <!-- DEBUT DU CODE POUR LA ROUE -->
+                      <div class="wheel-container">
+                        <!-- SELECTEUR -->
+                        <div class="selecteur" id="selecteur" alt="selecteur">
+                          <svg width="107" height="118" viewBox="0 0 107 118" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">≠
+                            <g id="Union" filter="url(#filter0_d_589_904)">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M58.1775 14.7913L52.2598 3.26025L46.2019 15.0644C22.4806 18.5086 4.25977 38.9288 4.25977 63.6048C4.25977 90.6954 26.221 112.657 53.3116 112.657C80.4022 112.657 102.363 90.6954 102.363 63.6048C102.363 38.1563 82.9838 17.2341 58.1775 14.7913Z"
+                                :fill='restaurantData["couleur-selecteur"]' />
+                            </g>
+                            <defs>
+                              <filter id="filter0_d_589_904" x="0.0402536" y="0.0956199" width="106.543"
+                                height="117.835" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                <feColorMatrix in="SourceAlpha" type="matrix"
+                                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                <feOffset dy="1.05488" />
+                                <feGaussianBlur stdDeviation="2.10976" />
+                                <feComposite in2="hardAlpha" operator="out" />
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_589_904" />
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_589_904"
+                                  result="shape" />
+                              </filter>
+                            </defs>
+                          </svg>
+                        </div>
+                        <img :src="restaurantData['url-logo-central']" class="selecteur logo">
+
+                        <svg ref="wheelSvg" width="352" height="352" viewBox="-175 -175 350 350">
+                          <g class="wheel">
+                            <!-- Segments -->
+                            <g v-for="(segment, index) in segments" :key="`segment-${index}`">
+                              <path :d="getSegmentPath(index)" :fill="segment.color">
+                              </path>
+                              <path :id="`text-path-${index}`" :d="getTextPath(index)" fill="none" stroke="none"></path>
+                              <text font-family="'Inter-Bold', Helvetica">
+                                <textPath :href="`#text-path-${index}`" startOffset="50%" text-anchor="middle"
+                                  :fill="segment.textColor" stroke="none">
+                                  <tspan v-for="(line, tspanIndex) in getTspansForSegment(segment.label)"
+                                    :key="`tspan-${index}-${tspanIndex}`" :x="0" :dy="tspanIndex * 20">
+                                    {{ line }}
+                                  </tspan>
+                                </textPath>
+
+                              </text>
+                            </g>
+                            <!-- Lignes de séparation banches -->
+                            <g v-for="(segment, index) in segments" :key="`line-${index}`">
+                              <line :x1="0" :y1="0" v-bind="getLineCoordinates(index, segments.length)" stroke="white"
+                                stroke-width="3" />
+                            </g>
+                        </svg>
+                      </div>
+                      <!-- FIN DU CODE POUR LA ROUE -->
+                    </div>
+                  </div>
+                  <div class="col-12 custom-btn-add-cdx">
+                    <!-- Bouton pour ajouter une nouvelle carte -->
+                    <button @click="ajouterCadeau" class="btn btn-primary">+ Ajouter un cadeau</button>
+                    <!-- Bouton pour publier les données -->
+                    <button @click="publierDonnees" class="btn btn-success">Publier les données</button>
+                  </div>
+                  <div v-if="chargementEnCours">
+                    <i class="fas fa-cog fa-spin"></i>
+                    <h4>
+                      On redemarre les serveurs pour mettre à jour vos données, cela peut prendre 1 à 2 minutes...
+                    </h4>
+                  </div>
+                  <div v-if="showCard" class="card my-card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Votre site est prêt !</h5>
+                      <a :href="restaurantUrl" target="_blank" class="btn btn-primary btn-sm">
+                        Visiter le site
+                      </a>
+                      <div id="qrcode" class="mt-3 center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="selectedSection === 'Help'">
+          <h1>Google Reviews</h1>
+          <div v-if="establishments.length">
+            <label for="establishment-select">Choisissez votre établissement:</label>
+            <select id="establishment-select" v-model="selectedEstablishment">
+              <option v-for="establishment in establishments" :value="establishment.id">{{ establishment.name }}
+              </option>
+            </select>
+            <button @click="fetchReviews">Afficher les avis</button>
+          </div>
+          <div v-else>
+            Chargement des établissements...
+            Desoler cette fonctionnalité n'est pas encore disponible, ...
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/src/assets/dashboard2.js"></script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

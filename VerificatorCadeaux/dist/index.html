@@ -1,0 +1,121 @@
+<html lang="fr">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs@6.9.6/dist/qs.js"></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pigly Programme Restaurant Augmentation de la visibilité">
+    <title>PiglyAgency</title>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/main.css" type="text/css" />
+</head>
+
+<body>
+
+    <div class="page" id="app">
+        <!-- DEBUT DU CODE DU POP-UP ERROR -->
+        <div class="error" v-if="error">
+            <img class="error-404" src="./src/assets/background404.png" alt="">
+            <p class="error-text">{{ errorMessage }}</p>
+        </div>
+        <!-- FIN DU CODE DU POP-UP ERROR-->
+
+        <!-- DEBUT DU CODE DU DEUXIEME POP - UP  == CHARGEMENT -->
+        <div id="loading-pop-up" class="checking" v-if="afficherChargement">
+            <div class="loader"></div>
+            <div class="text-wrapper-pop-up-chargement">Verification de ton avis...</div>
+            <p class="div-pop-up-chargement">Attends, on jette un œil !</p>
+        </div>
+        <!-- FIN DU CODE DU DEUXIEME POP - UP == CHARGEMENT -->
+
+        <!-- DEBUT DU CODE DE VALID DIV -->
+        <div class="valid" v-if="valid">
+            <!-- TOP CODE -->
+            <div class="top">
+                <img src="./src/assets/valid.svg" alt="valid icon">
+                <h2 class="win-middle-phrase">Ce cadeau est validé</h2>
+            </div>
+
+            <!-- MIDDLE CODE -->
+            <!-- <div class="middle">
+                <p class="win-simple">
+                    On vous simplifie la vie <br>
+                    pas besoins de bouton n'y rien, <br>
+                    vous venez déjà de validé le gain 😇
+                </p>
+            </div> -->
+
+            <!-- BOTTOM CODE -->
+            <div class="bottom">
+                <h2 class="win-gain" id="id-gain">{{ gain }}</h2>
+                <div class="inline-group">
+                    <p class="win-by">Gagné par</p>
+                    <p class="win-by id-winner" id="id-winner">{{ prenom }}</p>
+                </div>
+                <div class="inline-group">
+                    <h2 class="win-condition" v-if="condition">Dépense minimal de :</h2>
+                    <h2 class="souligne" v-if="condition">{{ condition }}</h2>
+                </div>
+                
+            </div>
+        </div>
+        <!-- FIN DU CODE DE VALID DIV -->
+
+        <!-- DEBUT DU CODE DE WRONG DIV -->
+        <div class="wrong" v-if="wrong">
+            <!-- TOP CODE -->
+            <div class="top">
+                <img src="./src/assets/wrong.svg" alt="wrong icon">
+                <h2 class="win-middle-phrase">Ce QR code n'est pas validé</h2>
+            </div>
+            
+            <!-- MIDDLE CODE -->
+            <!-- <div id="validity-claim-error" class="middle">
+                <p class="win-simple">
+                     <br><br><br><br><br>Navré 😢<br><br>
+                    Les règles sont les règles <br> <br>
+                    {{ ServerMessage }}  <br> <br>
+                </p> -->
+            <!-- </div> -->
+
+            <!-- BOTTOM CODE -->
+            <div class="bottom" v-if="alreadyClaimError">
+                <div class="inline-group">
+                    <p class="win-by id-winner souligne" id="id-winner">{{ prenom }}</p>
+                    <p class="win-by">à déjà récupérer son cadeaux le :</p>
+                </div>
+                <div class="inline-group">
+                    <h2 id="" class="date-claim">{{ dateScanner }}</h2>
+                </div>
+            </div>
+
+            <!-- BOTTOM CODE -->
+            <div v-if="dateClaimError" class="bottom">
+                <!-- Expirer le-->
+                <p class="win-by">Ce gain est expirer depuis le : </p>
+                <h2 class="win-condition date">{{ dateValidation }}</h2>
+
+                <!-- Validé le-->
+                <p class="win-by">Ce gain à été remporté le : </p>
+                <h2 class="win-condition date">{{ dateCreation }}</h2>
+            </div>
+        </div>
+        <!-- FIN DU CODE DE WRONG DIV -->
+    </div>
+
+    <!-- DEBUT DU CODE DU FOOTER -->
+    <!-- <footer class="footer" style="display: block;">
+        <p class="text-footer-1">Made with love and coffee by</p>
+        <div class="group-footer">
+            <div class="overlap-group"></div>
+        </div>
+        <div class="text-footer-2">Pigly agency</div>
+    </footer> -->
+    <!-- FIN DU CODE DU FOOTER -->
+
+    <script type="module" src="/src/assets/app.js"></script>
+</body>
+
+</html>

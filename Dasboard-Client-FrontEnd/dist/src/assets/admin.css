@@ -1,0 +1,462 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s;
+}
+
+#adminSidebar {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: width 0.5s;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); 
+}
+#adminSidebar .sidebar-header {
+    padding: 8px;
+    text-align: center;
+}
+
+#adminSidebar .sidebar-header button {
+    font-size: 24px; /* Agrandir le bouton */
+    transform: rotate(0deg); /* Pour l'animation */
+    transition: transform 0.5s;
+}
+
+#adminSidebar.expanded .sidebar-header button {
+    transform: rotate(90deg); /* Rotation lorsqu'il est cliqué */
+}
+
+#adminSidebar .menu-text {
+    display: none;
+    transition: display 0.5s;
+}
+
+#adminSidebar ul.components li {
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.5s;
+}
+
+#adminSidebar ul.components li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Centrer les icônes */
+#adminSidebar ul.components {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70%; /* Pour centrer les icônes */
+}
+
+/* Modifier les couleurs et la taille du bouton */
+.toggle-theme .form-switch i {
+    width: 40px;
+    height: 20px;
+    left: -15px;
+}
+
+.toggle-theme .form-switch i::before {
+    width: 18px;
+    height: 18px;
+    left: 3%;
+}
+
+.toggle-theme .form-switch input[type="checkbox"]:checked + i::before {
+    left: 50%;
+}
+
+.toggle-theme {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form-switch i {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background: #e6e6e6;
+    border-radius: 30px;
+    vertical-align: middle;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.form-switch i::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(0, -50%);
+    width: 26px;
+    height: 26px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s ease-in-out;
+}
+
+.form-switch input[type="checkbox"]:checked + i {
+    background: #4caf50;
+}
+
+.form-switch input[type="checkbox"]:checked + i::before {
+    left: 60%;
+}
+/* les trois bar de la nav bar left  */
+.fa-bars:before, .fa-navicon:before {
+    content: "\f0c9";
+    margin-left: -12px;
+}
+/* En mode sombre */
+body.dark-mode #adminSidebar .sidebar-header button {
+    color: white;
+    background-color: transparent;
+    border: none;
+}
+/* En mode clair */
+body #adminSidebar .sidebar-header button {
+    color: black;
+    background-color: transparent;
+    border: none;
+}
+/* En mode clair: Effet de survol pour les boutons */
+body #adminSidebar .sidebar ul li a:hover {
+    color: #1a1a1a; /* Changement de couleur de texte au survol en mode clair */
+    background-color: rgba(0, 0, 0, 0.1); /* Léger fond sombre pour le contraste */
+}
+
+/* En mode sombre: Effet de survol pour les boutons */
+body.dark-mode #adminSidebar .sidebar ul li a:hover {
+    color: #f1f1f1; /* Changement de couleur de texte au survol en mode sombre */
+    background-color: rgba(255, 255, 255, 0.1); /* Léger fond clair pour le contraste */
+}
+div {
+    transition: margin-left 0.3s ease; /* Pour une transition fluide */
+}
+
+.with-sidebar {
+    margin-left: 220px; /* Cela devrait être la largeur de votre barre latérale étendue */
+}
+
+/* bouton on/off de l'envoie oou non de SMS */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+/* Cacher la sidebar sur les écrans mobiles */
+@media (max-width: 767.98px) {
+    #adminSidebar {
+        display: none;
+    }
+    .with-sidebar {
+        margin-left: 0;
+    }
+}
+
+/* Style pour le menu mobile */
+.nav-item {
+    text-align: center;
+}
+
+/* Debut code notifications */
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1050; /* Supérieur aux autres éléments */
+}
+
+.toast {
+    border-radius: 0.25rem;
+    background-color: rgba(245, 245, 245, 0.95); /* Fond clair avec légère transparence */
+    color: #333; /* Texte foncé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toast-header {
+    background-color: rgba(245, 245, 245, 0.95); /* Fond clair avec légère transparence */
+    color: #333; /* Texte foncé */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toast .btn-close {
+    color: #333;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active dans <2.1.8 */ {
+    opacity: 0;
+}
+.toast:not(.show) {
+    display: block;
+}
+/* Fin code notifications */
+
+
+/* Restaurant */
+.card .list-restaurants, .card .details-restaurant {
+    transition: all 0.3s ease;
+    border-radius: 0px;
+}
+
+.card .list-restaurants.active, .card .details-restaurant.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.my-card {
+    max-width: 300px; /* taille maximale de la carte */
+    margin: 100px auto; /* centrage de la carte */
+  }
+  
+  /* Style personnalisé pour le lien si besoin */
+  .my-card .btn {
+    font-size: 0.8rem; /* plus petite police pour le bouton */
+    padding: 0.25rem 0.5rem; /* espacement intérieur réduit pour le bouton */
+  }
+  
+  .col-12 .col-lg-4{
+    margin-right: -110px;
+  }
+  .iphone-preview {
+    top: 10%;
+    left: 100px;
+    width: 414px;
+    height: 896px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+:root {
+    --primary-color: #3498db;
+    --error-color: #f84737;
+    --text-color: #253F4E;
+    --slogan-color: #445C78;
+    --white: #ffff;
+    --footer: #d9d9d9b2;
+}
+#iphone-content {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: #e0d7cd;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* HEader avec l'image, le slogan ect.. */
+.page .overlap {
+    position: relative;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+}
+
+.page .overlap::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+}
+.page .overlap {
+    background-size: cover;
+}
+
+
+/* Logo du réstaurant dans le header*/
+.header-logo {
+    width: 28%;
+    position: absolute;
+    justify-content: center;
+}
+
+/* la petite phrase sur l'image dans le header du restau, dynamique*/
+.page .offers {
+    position: relative;
+    width: 340px;
+    top: 33%;
+    text-shadow: 0px 4px 4px #00000087;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 25.2px;
+}
+
+/* slogan du restaurant dynamique */
+.page .slogan {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10%;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: bold;
+    color: var(--slogan-color);
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 28px;
+}
+
+.page .text-wrapper {
+    width: 47px;
+    height: 19px;
+    top: 13px;
+    left: 26px;
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 15.6px;
+    letter-spacing: -0.31px;
+    position: absolute;
+    line-height: normal;
+}
+
+/* DEBUT DU CODE DU PREMIER POP-UP*/
+
+
+/* DEBUT DU CODE De la roue */
+/* Sélecteur qui se trouve dans la roue*/
+.selecteur {
+    position: absolute;
+    width: 105px;
+    height: 116px;
+    margin-top: 114px;
+    margin-left: 124px;
+    z-index: 1;
+}
+
+/* Sélecteur qui se trouve dans le selecteur dynamique*/
+.logo {
+    width: 70px;
+    height: 70px;
+    margin-top: 143px;
+    margin-left: 143px;
+    position: absolute;
+}
+
+.wheel-container {
+    z-index: 2;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    margin-top: 7%;
+    width: 352px;
+    height: 352px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+/* Gestion du style des erreur de FORMULAIRE */
+.error {
+    font-size: 0.8rem;
+    margin-top: 20.25rem;
+    margin-bottom: 2%;
+}
+/* FIN DU CODE De la roue */
+
+/* Style du bouton */
+.button-pop-up {
+    margin: -25px auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 10%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+}
+
+.button-wheel {
+    margin: 10% auto;
+    position: relative;
+    display: flex;
+    /* Utilisez l'affichage flex pour centrer verticalement et horizontalement */
+    justify-content: center;
+    /* Centre horizontalement */
+    align-items: center;
+    /* Centre verticalement */
+    width: 90%;
+    height: 7%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+}
+
+/* Style du texte dans le bouton */
+.button-text {
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+/* FIN DU CODE DU PREMIER POP-UP*/

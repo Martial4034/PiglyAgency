@@ -1,0 +1,455 @@
+:root {
+    --primary-color: #3498db;
+    --error-color: #f84737;
+    --text-color: #253F4E;
+    --white: #ffffff;
+    --footer: #d9d9d9b2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Assurez-vous que le body et le html prennent toute la hauteur */
+    overflow: hidden;
+    /* Empêche le défilement */
+    background-color: #e0d7cd;
+}
+
+/* erreur */
+.error {
+    background-color: var(--error-color);
+    position: fixed;
+    margin: 10% auto;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 90%;
+    min-height: 45%;
+    max-height: 60%;
+    border-radius: 22px;
+}
+
+.error-404 {
+    margin: 3% auto;
+    height: 70%;
+    width: 80%;
+    margin-left: 6%;
+}
+
+.error-text {
+    position: relative;
+    margin: 3% auto;
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--white);
+    width: 90%;
+    font-size: 19px;
+}
+
+/* fin erreur */
+/* DEBUT DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+.checking {
+    position: fixed;
+    margin: 0 auto;
+    margin-top: 27%;
+    top: 27%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 70%;
+    height: 25%;
+    border-radius: 22px;
+    background-color: var(--white);
+}
+
+.checking .loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid var(--text-color);
+    width: 60px;
+    height: 60px;
+    margin: 18 auto;
+    animation: rotation 0.7s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+.checking .text-wrapper-pop-up-chargement {
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    top: 0px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #903d2a;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30.8px;
+    white-space: nowrap;
+}
+
+
+@media (max-width: 480px) {
+    .checking {
+        height: 28%;
+    }
+
+    .checking .loader {
+        margin-top: 8%;
+        margin-bottom: 10%;
+    }
+}
+
+/* FIN DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+.page {
+    max-width: 700px;
+    height: 100vh;
+    /* Prend la totalité de la hauteur de la fenêtre d'affichage */
+    width: 100%;
+    position: relative;
+    display: flex;
+    /* Utilisez flexbox pour le centrage */
+    justify-content: center;
+    /* Centrage horizontal */
+    align-items: center;
+    /* Centrage vertical */
+    overflow: hidden;
+    /* Empêche le défilement à l'intérieur de .page */
+}
+
+.box {
+    /* Assurez-vous que .box prend toute la largeur et la hauteur de .page si nécessaire */
+    top: -6.5%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Utilisez flexbox pour le centrage de .rectangle */
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.title {
+    color: #425C59;
+    text-align: center;
+    font-family: "Overpass-ExtraBold", Helvetica;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding: 5%;
+}
+/* DEBUT DU CODE POUR LE RECTANGLE + SES ENCOCHES (NOTCH) */
+.rectangle {
+    width: 85%;
+    height: 65%;
+    background-color: #fff;
+    border-radius: 40px;
+    position: relative;
+    /* C'est nécessaire pour que les pseudo-éléments soient positionnés par rapport à .rectangle */
+    overflow: hidden;
+    /* Cache les parties des pseudo-éléments qui dépassent */
+}
+
+/* Si la hauteur est inferieur à 680px alors augmenter la taille du rectangle (hauteur) de  10%*/
+@media (max-height: 680px) {
+    .rectangle {
+        height: 75%;
+    }
+}
+
+.notch {
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    /* Centrer verticalement */
+    width: 40px;
+    /* Ou la largeur que vous souhaitez pour la notch */
+    height: 30px;
+    /* Ou la hauteur que vous souhaitez pour la notch */
+    background-color: #e0d7cd;
+    /* Transparent pour voir le background */
+    border-radius: 50%;
+    /* Pour rendre la div ronde */
+    z-index: 1;
+    /* Optionnel, au cas où vous voudriez qu'il soit au-dessus des autres éléments */
+}
+
+.left-notch {
+    left: 0;
+    transform: translateX(-50%) translateY(-50%);
+    /* Déplacer la notch pour qu'elle soit à moitié hors de la div .rectangle */
+}
+
+.right-notch {
+    right: 0;
+    transform: translateX(50%) translateY(-50%);
+    /* De même pour la notch droite */
+}
+
+/* FIN DU CODE POUR LE RECTANGLE + SES ENCOCHES (NOTCH) */
+
+
+/* DEBUT DU CODE POUR LA PARTIE SUPERIEUR TITRE + QR CODE*/
+.rectangle .p-sup {
+    font-family: "Overpass-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #425c59;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.partie-superieur {
+    margin-top: 7.5%;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.box .vector {
+    display: flex;
+    margin: 10% auto;
+    width: 225px;
+    height: 225px;
+}
+
+/* Si la hauteur est inferieur à 680px alors réduire l'image de 20%*/
+@media (max-height: 600px) {
+    .box .vector {
+        margin: 5% auto;
+        width: 180px;
+        height: 180px;
+    }
+}
+
+/* FIN DU CODE POUR LA PARTIE SUPERIEUR TITRE + QR CODE*/
+
+/* DEBUT DU CODE POUR SEPARATION (POINTIER) */
+.line-container {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partial-line {
+    height: 2px;
+    width: 80%;
+    /* Vous pouvez ajuster cette largeur pour qu'elle corresponde à la largeur souhaitée */
+    background: repeating-linear-gradient(to right,
+            gray,
+            gray 2px,
+            transparent 2px,
+            transparent 4px);
+}
+
+/* FIN DU CODE POUR SEPARATION */
+
+/* DEBUT DU CODE POUR LE TICKET */
+
+/* DEBUT : style des textes */
+.non-variable {
+    font-family: "Overpass-Medium", Helvetica;
+    font-weight: 500;
+    color: #425c59b2;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.variable {
+    font-family: "Overpass-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #425c59;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+/* FIN : style des textes */
+
+.ticket {
+    position: absolute;
+    width: 100%;
+    top: 70%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+/* si jamais la largeur de l'ecran  est inferieur a 375% alors passé les padding de 2% a 1% */
+@media (max-width: 375px) {
+    .ticket {
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+}
+
+.overlap-group-ticket {
+    display: flex;
+    justify-content: space-between;
+    /* Espacement entre les éléments */
+    width: 100%;
+    /* Utilise toute la largeur disponible */
+}
+
+.number-1,
+.number-2 {
+    display: flex;
+    align-items: center;
+}
+
+.text-wrapper-1,
+.text-wrapper-2,
+.text-wrapper-3 {
+    display: flex;
+}
+
+.non-variable {
+    margin-right: 7px;
+    /* Espacement entre les textes non variable et variable */
+}
+
+.bottom {
+    padding-top: 2%;
+}
+
+
+
+/* DEBUT CODE DU GAIN */
+.line-container-2 {
+    padding-bottom: 15px;
+    margin-top: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-wrapper-4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gain-id {
+    margin: 0;
+    font-family: "Overpass-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #a65341;
+    font-size: 36px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+/* code du compte a rebours */
+.compteArebours{
+    margin: 25% auto;
+    text-align: center;
+    font-family: "Overpass-Medium", Helvetica;
+    font-weight: 500;
+    color: #425c59b2;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+.countdown{
+    font-family: "Overpass-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #a65341;
+    padding-top: 10%;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+/* DEBUT DU CODE DU FOOTER */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: var(--footer);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer .text-footer-1 {
+    position: relative;
+    width: 130px;
+    top: 10px;
+    left: 10%;
+    font-family: "Overpass-Medium", Helvetica;
+    font-weight: 500;
+    color: #425c5980;
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.footer .group {
+
+    width: 15px;
+    height: 15px;
+    top: 13px;
+    left: 202px;
+    border-radius: 2px;
+}
+
+.footer .overlap-group {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    top: -8px;
+    left: 49%;
+    background-image: url(./footer-logo.svg);
+    background-size: 100% 100%;
+}
+
+.footer .text-footer-2 {
+    position: relative;
+    width: 89px;
+    top: -110%;
+    left: 56%;
+    font-family: "Aclonica-Regular", Helvetica;
+    font-weight: 400;
+    color: #425c5980;
+    font-size: 13px;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* FIN DU CODE DU FOOTER */
+@media (max-width: 480px) {
+    #winning-message {
+        font-size: 2rem;
+    }
+}

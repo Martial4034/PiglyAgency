@@ -1,0 +1,13 @@
+# Fichier .gitignore global pour PiglyAgency
+
+# Ignore les fichiers d'environnement
+**/.env
+
+# Ignore les dossiers node_modules dans tous les sous-dossiers
+**/node_modules/
+
+# Ignore les fichiers package-lock.json dans tous les sous-dossiers
+**/package-lock.json
+
+# Ignore les fichiers spécifiques Firebase Admin SDK
+**/jeu-concours-f0a5b-firebase-adminsdk-qy6t5-c047a45550.json

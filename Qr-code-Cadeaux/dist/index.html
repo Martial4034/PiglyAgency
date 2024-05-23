@@ -1,0 +1,112 @@
+<html lang="fr">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs@6.9.6/dist/qs.js"></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pigly Programme Restaurant Augmentation de la visibilité - SEO">
+    <title>PiglyAgency</title>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/main.css" type="text/css" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- DEBUT DU CODE DU POP-UP ERROR -->
+        <div class="error" v-if="error">
+            <img class="error-404" src="./src/assets/background404.png" alt="">
+            <p class="error-text">{{ errorMessage }}</p>
+        </div>
+        <!-- FIN DU CODE DU POP-UP ERROR-->
+
+        <!-- DEBUT DU CODE DU DEUXIEME POP - UP  == CHARGEMENT -->
+        <div id="loading-pop-up" class="checking" v-if="afficherChargement">
+            <div class="loader"></div>
+            <div class="text-wrapper-pop-up-chargement">On charge ton gain...</div>
+        </div>
+        <!-- FIN DU CODE DU DEUXIEME POP - UP == CHARGEMENT -->
+
+
+        <!-- DEBUT DU CODE DE LA PAGE -->
+        <div class="page" v-if="page">
+            <div class="box">
+                <h1 class="title">Présentez ce QR code pour débloquer ton cadeau</h1>
+                <div class="rectangle">
+                    <!--PARTIE SUPERIEUR-->
+                    <div class="partie-superieur">
+                        <p class="p-sup">QR code à usage unique</p>
+                        <img v-if="qrCodeImageURL" class="vector" :src="qrCodeImageURL" @load="onImageLoaded" />
+                        <div class="compteArebours" v-if="compteARebours">
+                            <p class="titre-countdown">Votre gain sera valide dans : </p>
+                            <p class="countdown">{{ compteARebours }}</p>
+                        </div>
+                    </div>
+                    <!--FIN de PARTIE SUPERIEUR-->
+
+                    <!-- Encoche droite et gauche-->
+                    <div class="notch left-notch"></div>
+                    <div class="notch right-notch"></div>
+
+                    <!-- Conteneur de ma migne de spéparation-->
+                    <div class="line-container">
+                        <svg width="267" height="1" viewBox="0 0 267 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="267" y1="0.5" y2="0.5" stroke="black" stroke-opacity="0.3"
+                                stroke-dasharray="8 8" />
+                        </svg>
+                    </div>
+
+                    <div class="ticket">
+                        <div class="overlap-group-ticket">
+                            <div class="number-1">
+                                <div class="overlap-group-1">
+                                    <div class="text-wrapper-1 non-variable">
+                                        <p class="non-variable">Gagné le </p>
+                                        <p class="variable">{{ dateCreation }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="number-2">
+                                <div class="text-wrapper-2">
+                                    <p class="non-variable">Valable jusqu’au</p>
+                                    <p class="variable">{{ dateValidation }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <div class="number-3">
+                                <div class="text-wrapper-3">
+                                    <p class="achat-condition non-variable" v-if="conditionGain">Pour tout achat pour une valeur supérieur à :</p>
+                                    <p class="variable" v-if="conditionGain">{{ conditionGain }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-container-2">
+                            <svg width="292" height="2" viewBox="0 0 292 2" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M291 1L1 1" stroke="black" stroke-opacity="0.3" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="text-wrapper-4">
+                            <p id="gain-id">{{gain}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DU CODE DE LA PAGE -->
+    </div>
+    <!-- DEBUT DU CODE DU FOOTER -->
+    <!-- <footer class="footer" style="display: block;">
+        <p class="text-footer-1">Made with love and coffee by</p>
+        <div class="group-footer">
+            <div class="overlap-group"></div>
+        </div>
+        <div class="text-footer-2">Pigly agency</div>
+    </footer> -->
+    <!-- FIN DU CODE DU FOOTER -->
+    <script type="module" src="/src/assets/app.js"></script>
+</body>
+
+</html>

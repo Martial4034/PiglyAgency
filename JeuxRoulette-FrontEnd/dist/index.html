@@ -1,0 +1,283 @@
+<html lang="fr">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5B2XVTPQ');</script>
+    <!-- End Google Tag Manager -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pigly Programme Restaurant Augmentation de la visibilité - SEO">
+    <title>PiglyAgency</title>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/assets/main.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.9.3/tsparticles.confetti.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5B2XVTPQ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="app" class="page">
+        <!-- DEBUT DU CODE DU POP-UP ERROR -->
+        <div class="error" v-if="error">
+            <img class="error-404" src="./src/assets/background404.png" alt="image-erreur">
+            <p class="error-text">{{ errorMessage }}</p>
+        </div>
+        <!-- FIN DU CODE DU POP-UP ERROR-->
+
+        <div class="div" v-if="page">
+            <!-- DEBUT DU CODE DU PREMIER POP - UP -->
+            <div class="fixed-pop-up-container" v-if="afficherPopup">
+                <div class="review-pop-up">
+                    <div class="group-pop-up">
+                        <div class="overlap-group-pop-up">
+                            <div class="text-wrapper-pop-up">{{ popupTitle }}</div>
+                            <div class="button-pop-up" id="btn-pop-up" @click="redirigerVersGoogle">
+                                <p class="button-text-pop-up">Compris ! J’écris mon avis 🌟</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-2-pop-up">
+                        <div class="overlap-pop-up">
+                            <div class="group-3-pop-up">
+                                <p class="p-pop-up">Rédigez-nous votre plus bel avis !🌟</p>
+                                <img src="./src/assets/pop-up/derriere-tel.svg" alt="telephone-avis" class="img-pop-up">
+                            </div>
+
+                            <img src="./src/assets/pop-up/tel-main-star.svg" alt="logo-telephone-avis" class="group-4-pop-up">
+                            <div class="overlap-wrapper-pop-up">
+                                <div  class="div-wrapper-pop-up">
+                                    <div ref="svgContainer1"></div> 
+                                    <div class="text-wrapper-2-pop-up">01</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="overlap-2-pop-up">
+                            <div class="overlap-3-pop-up">
+                                <img class="group-5-pop-up" src="./src/assets/pop-up/onglets-bar-petits.svg" alt="onglets"/>
+                                <div class="group-6-pop-up">
+                                    <p class="special">Revenez sur cet onglet pour jouer !</p>
+                                    <img class="group-7-pop-up" src="./src/assets/pop-up/gift-box.svg" />
+                                </div>
+                                <div class="overlap-group-wrapper-pop-up">
+                                    <img class="group-24-pop-up" src="./src/assets/pop-up/derriere-tel.svg" alt="background-logo-gift"/>
+                                    <div class="overlap-group-2-pop-up">
+                                        <div ref="svgContainer3"></div> 
+                                        <div class="text-wrapper-3-pop-up">03</div>
+                                    </div>
+                                </div>
+                                <img class="vector-pop-up" src="./src/assets/pop-up/vector-4.png" alt="final"/>
+                            </div>
+                        </div>
+                        <img class="vector-2-pop-up" src="./src/assets/pop-up/vector-3.png" alt="onglets-safari"/>
+                        <p class="p-pop-up" id="down">Revenez ici pour jouer en cliquant sur l’îcone</p>
+                        <div class="group-8-pop-up">
+                            <div class="overlap-4-pop-up">
+                                <img class="group-9-pop-up" src="./src/assets/pop-up/derriere-tel.svg" alt="certifications"/>
+                                <div class="group-10-pop-up">
+                                    <div class="overlap-group-3-pop-up">
+                                        <div ref="svgContainer2"></div> 
+                                        <div class="text-wrapper-5-pop-up">02</div>
+                                    </div>
+                                </div>
+                                <img class="ep-document-copy-pop-up" src="./src/assets/pop-up/logo-onglets.svg" alt="final-2"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN DU CODE DU PREMIER POP - UP -->
+
+            <!-- DEBUT DU CODE DU DEUXIEME POP - UP  == CHARGEMENT -->
+            <div id="loading-pop-up" class="checking" v-if="afficherChargement" :key="redirectionTime.value">
+                <div class="loader"></div>
+                <div class="text-wrapper-pop-up-chargement">Verification de ton avis...</div>
+                <p class="div-pop-up-chargement">Attends, on jette un œil !</p>
+            </div>
+            <!-- FIN DU CODE DU DEUXIEME POP - UP == CHARGEMENT -->
+
+            <!-- DEBUT DU CODE DU TROISIEME POP - UP  == SUCCESS -->
+            <div id="success-pop-up" class="checking" v-if="afficherSuccess">
+                <img class="pop-up-success-image" src="./src/assets/pop-up/Checked/success.svg"
+                    alt="image-success-continue">
+                <div id="pop-up-success-text" class="text-wrapper-pop-up-chargement">A toi de jouer ! </div>
+            </div>
+            <!-- FIN DU CODE DU TROISIEME POP - UP == SUCCESS -->
+
+            <!-- DEBUT  FILTRE DE FLOU -->
+            <div class="flou" v-if="afficherFlou" style="display: flex;"></div>
+            <!-- FIN DU FILTRE DE FLOU -->
+
+            <!-- DEBUT DU CODE DU POP - UP DE FORMULAIRE -->
+            <div :class="['form-pop-up', popupClass]" v-if="afficherForm" style="display: block;">
+                <p class="tell-us-who-you-are"
+                    v-html="`Dites-nous qui vous êtes, et ${restaurantData.restaurantName} s'${restaurantData.verbeDuFormulaire} du reste !`"></p>
+                <div class="group-3">
+                    <div class="input-group">
+
+                        <input id="first-name-input" class="overlap-group" type="first-name"
+                            placeholder="Entrer votre prénom" autocomplete="given-name" v-model="prenom" />
+                        <p class="error-p" v-show="prenomError">{{ prenomError }}</p>
+
+                    </div>
+                </div>
+                <div class="group-4">
+                    <div class="phone-input-wrapper">
+                        
+                        <input id="phone-number-input" class="overlap-group phone-number" type="phone-number"
+                            placeholder="Numéro de télephone" autocomplete="tel" v-model="telephone" />
+                        <p class="error-p error-phone" v-show="telephoneError">{{ telephoneError }}</p>
+                    </div>
+                </div>
+                <div class="group-6">
+                    <div class="input-group">
+                        <input id="email-input" class="overlap-group" type="email"
+                            placeholder="Entrez votre addresse email" autocomplete="email" v-model="email" />
+                        <p class="error-p" v-show="emailError">{{ emailError }}</p>
+                    </div>
+                </div>
+                <div class="group-2">
+                    <input type="checkbox" id="recevoirCadeauxCheckbox" class="checkbox" v-model="recevoirCadeaux" />
+                    <label for="recevoirCadeauxCheckbox" class="checkbox-label">
+                        <p class="p">Je veux recevoir des cadeaux de la part de mon restaurant</p>
+                    </label>
+                </div>
+                
+                <div :class="{ 'disabled': isSubmitting }" @click="isSubmitting ? null : validerForm()" class="button-pop-up" id="btn-form" >
+                    <p class="button-text">Faire tourner la roue</p>
+                </div>
+            </div>
+            <!-- FIN DU CODE DU POP - UP DE FORMULAIRE -->
+
+            <!-- DEBUT DU CODE DU HEADER -->
+            <div class="overlap"
+            :style="{ backgroundImage: 'url(' + restaurantData['url-img-header'] + ')' }">
+                <p class="offers" v-html="`${restaurantData.restaurantName} ${restaurantData.restaurantSlogan}`"></p>
+                <img class="header-logo" :src="restaurantData['url-logo-central']" alt="url-logo-central"/>
+
+            </div>
+            <!-- FIN DU CODE DU HEADER -->
+
+            <!-- DEBUT DU CODE SLOGAN DYNAMIQUE -->
+            <p class="slogan"
+                v-html="`La roue ${restaurantData.prepositionSlogan} ${restaurantData.restaurantNameCourt} fait son choix... <br />Préparez-vous à être gâté !`">
+            </p>
+            <!-- FIN DU CODE SLOGAN DYNAMIQUE -->
+
+            <!-- DEBUT DU CODE POUR LA ROUE -->
+            <div class="wheel-container">
+                <!-- SELECTEUR -->
+                <div class="selecteur" id="selecteur" alt="selecteur">
+                    <svg width="107" height="118" viewBox="0 0 107 118" fill="none" xmlns="http://www.w3.org/2000/svg">≠
+                        <g id="Union" filter="url(#filter0_d_589_904)">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M58.1775 14.7913L52.2598 3.26025L46.2019 15.0644C22.4806 18.5086 4.25977 38.9288 4.25977 63.6048C4.25977 90.6954 26.221 112.657 53.3116 112.657C80.4022 112.657 102.363 90.6954 102.363 63.6048C102.363 38.1563 82.9838 17.2341 58.1775 14.7913Z"
+                                :fill='restaurantData["couleurSelecteur"]' />
+                        </g>
+                        <defs>
+                            <filter id="filter0_d_589_904" x="0.0402536" y="0.0956199" width="106.543" height="117.835"
+                                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                <feColorMatrix in="SourceAlpha" type="matrix"
+                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                <feOffset dy="1.05488" />
+                                <feGaussianBlur stdDeviation="2.10976" />
+                                <feComposite in2="hardAlpha" operator="out" />
+                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_589_904" />
+                                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_589_904"
+                                    result="shape" />
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                <img :src="restaurantData['url-logo-central']" class="selecteur logo">
+                
+                <svg ref="wheelSvg" width="352" height="352" viewBox="-175 -175 350 350">
+                    <g class="wheel">
+                      <!-- Segments -->
+                      <g v-for="(segment, index) in segments" :key="`segment-${index}`">
+                        <path :d="getSegmentPath(index)" :fill="segment.color"></path>
+                        <path :id="`text-path-${index}`" :d="getTextPath(index)" fill="none" stroke="none"></path>
+                        <text font-family="'Inter-Bold', Helvetica">
+                            <textPath :href="`#text-path-${index}`" startOffset="50%" text-anchor="middle" :fill="segment.textColor" stroke="none">
+                                <tspan v-for="(line, tspanIndex) in getTspansForSegment(segment.label)" :key="`tspan-${index}-${tspanIndex}`" :x="0" :dy="tspanIndex * 20">
+                                  {{ line }}
+                                </tspan>
+                              </textPath>
+                              
+                        </text>
+                      </g>
+                      <!-- Lignes de séparation noires -->
+                      <g v-for="(segment, index) in segments" :key="`line-${index}`">
+                        <line :x1="0" :y1="0"
+                              v-bind="getLineCoordinates(index, segments.length)"
+                              stroke="white" stroke-width="3" />
+                      </g>
+                  </svg>
+              </div>
+           
+            <!-- FIN DU CODE POUR LA ROUE -->
+
+            <!-- DEBUT CODE POUR LE BOUTON ROUE -->
+            <div class="button-wheel" @click="showPopUpFormulaire" style="display: flex;" v-if="btnShowForm">
+                <p class="button-text">Je veux jouer !</p>
+            </div>
+            <!-- FIN CODE POUR LE BOUTON ROUE -->
+        </div>
+        <!-- DEBUT DU CODE DU PREMIER POP - UP mais APRES GAIN -->
+        <div class="flou" v-if="afficherFlouApresGain" style="display: flex;"></div>
+        <div class="fixed-pop-up-container" v-if="afficherPopupApresGain">
+            <div class="review-pop-up">
+                <div class="group-pop-up-apres-gain">
+                    <div class="overlap-group-pop-up-apres-gain" @click="redirigerVersGoogle">
+                        <div class="text-wrapper-pop-up">Votre avis compte,</div>
+                        <div class="button-pop-up-apres-gain" id="btn-pop-up" @click="redirigerVersGoogle">
+                            <p class="button-text-pop-up">Laisser un avis Google 🌟</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-2-pop-up-apres-gain" @click="redirigerVersGoogle">
+                    <p class="p-pop-up-apres-gain" id="down">Rédigez nous votre plus bel avis, pour recevoir votre cadeaux 😋</p>
+                </div>
+            </div>
+        </div>
+        <!-- FIN DU CODE DU PREMIER POP - UP -->
+        <!-- DEBUT DU CODE DE L'AFFICHAGE DU GAIN -->
+        <div id="tsparticles" v-if="tsparticles"></div>
+        <div id="winning-message" v-if="winningMessage">
+            <img class="winning-gif" id="winning-gif" src="./src/assets/success/cadeaux.gif" alt="GIF WIN SUCCESS" loop>
+            <img class="winning-ombre" src="./src/assets/success/ombre.png" alt="ombre du gif">
+            <div class="winning-slogan">
+                <h2 class="winning-slogan-title">La roue a parlé !</h2>
+                <div class="winning-linear-gardent"></div>
+                <p class="winning-slogan-text">Vous avez remporté :</p>
+                <p class="winning-slogan-text">{{ gaintext }}</p>
+                <p class="winning-info">{{ restaurantMessage }}</p>
+            </div>
+        </div>
+        <!-- FIN DU CODE DE L'AFFICHAGE DU GAIN -->
+
+        <!-- DEBUT DU CODE DU FOOTER -->
+        <!-- <footer class="footer" style="display: none;">
+            <p class="text-footer-1">Made with love and coffee by</p>
+            <div class="group-footer">
+                <div class="overlap-group"></div>
+            </div>
+            <div class="text-footer-2">Pigly agency</div>
+        </footer> -->
+        <!-- FIN DU CODE DU FOOTER -->
+
+        <script type="module" src="/src/assets/app.js"></script>
+</body>
+
+</html>

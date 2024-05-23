@@ -1,0 +1,1216 @@
+:root {
+    --primary-color: #3498db;
+    --error-color: #f84737;
+    --text-color: #253F4E;
+    --slogan-color: #445C78;
+    --white: #ffff;
+    --footer: #d9d9d9b2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: #e0d7cd;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* erreur */
+.error{
+    background-color: var(--error-color);
+    position: fixed;
+    margin: 10% auto;
+    margin-top: 25%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 90%;
+    min-height: 45%;
+    max-height: 60%;
+    border-radius: 22px;
+} 
+.error-404{
+    margin: 3% auto;
+    height: 70%;
+    width: 80%;
+    margin-left: 6%;
+}
+.error-text {
+    position: relative; 
+    margin: 3% auto;
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: #fff;
+    width: 90%;
+    font-size: 19px;
+}
+.error-p {
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--error-color);
+    font-size: 15px;
+}
+.page {
+    max-width: 700px;
+    /* Par exemple, une largeur maximale pour votre div */
+    min-height: 103vh;
+    width: 100%;
+    position: relative;
+}
+
+
+/* effet de flou au body lorsqu'un pop up : .review-pop-up  est affiché */
+.flou {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Couleur de fond semi-transparente pour le filtre */
+    backdrop-filter: blur(5px);
+    /* Appliquer un flou au filtre si nécessaire */
+    z-index: 2;
+    /* Assurez-vous que le filtre soit au-dessus du contenu */
+}
+
+/* HEader avec l'image, le slogan ect.. */
+.page .overlap {
+    position: relative;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+}
+
+.page .overlap::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
+}
+.page .overlap {
+    background-size: cover;
+}
+
+
+/* Logo du réstaurant dans le header*/
+.header-logo {
+    width: 28%;
+    position: absolute;
+    justify-content: center;
+}
+
+/* la petite phrase sur l'image dans le header du restau, dynamique*/
+.page .offers {
+    position: relative;
+    width: 340px;
+    top: 33%;
+    text-shadow: 0px 4px 4px #00000087;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 25.2px;
+}
+
+/* slogan du restaurant dynamique */
+.page .slogan {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10%;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: bold;
+    color: var(--slogan-color);
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 28px;
+}
+
+.page .text-wrapper {
+    width: 47px;
+    height: 19px;
+    top: 13px;
+    left: 26px;
+    font-family: "SF Pro Text-Regular", Helvetica;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 15.6px;
+    letter-spacing: -0.31px;
+    position: absolute;
+    line-height: normal;
+}
+
+/* DEBUT DU CODE DU PREMIER POP-UP*/
+
+/* fonction cacher secrete pour mettre en fixed le pop-up */
+.fixed-pop-up-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* Assurez-vous que ce z-index est plus élevé que tout autre élément de votre page pour que le pop-up soit toujours au-dessus. */
+}
+
+.review-pop-up {
+    position: absolute;
+    margin: 0 auto;
+    z-index: 5;
+    backdrop-filter: none;
+}
+
+.review-pop-up .group-pop-up {
+    position: relative;
+    width: 362px;
+    height: 503px;
+    margin-right: -4px;
+}
+
+.review-pop-up .overlap-group-pop-up {
+    position: relative;
+    width: 358px;
+    height: 503px;
+    background-color: #ffffff;
+    border-radius: 22px;
+}
+
+.review-pop-up .text-wrapper-pop-up {
+    position: relative;
+    margin: 0 auto;
+    padding-top: 7%;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #903d2a;
+    font-size: 28px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 33.6px;
+    white-space: nowrap;
+}
+
+.review-pop-up .button-pop-up {
+    display: flex;
+    width: 90%;
+    height: 8%;
+    margin: 0px auto;
+    align-items: center;
+    justify-content: center;
+    top: 77%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+}
+
+.button-text-pop-up {
+    position: relative;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: var(--white);
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.review-pop-up .div-pop-up {
+    position: absolute;
+    top: 274px;
+    left: 143px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.review-pop-up .group-2-pop-up {
+    position: absolute;
+    width: 286px;
+    height: 320px;
+    top: 21%;
+    left: 8%;
+}
+
+.review-pop-up .overlap-pop-up {
+    position: absolute;
+    width: 227px;
+    height: 82px;
+    top: 0;
+    left: 40px;
+}
+
+.review-pop-up .overlap-1-5-pop-up {
+    position: absolute;
+    width: 227px;
+    height: 82px;
+    top: 0;
+    left: 7px;
+}
+
+.review-pop-up .group-3-pop-up {
+    position: absolute;
+    width: 227px;
+    height: 79px;
+    top: 3px;
+    left: 0;
+}
+
+/* Ombre derriere le logo du 02 */
+.review-pop-up .group-9-pop-up {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+}
+
+/* Ombre derriere le logo du 03 */
+.review-pop-up .group-24-pop-up {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+}
+
+.review-pop-up .p-pop-up {
+    position: absolute;
+    top: 50px;
+    left: -2px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+.special{
+    top: 65px;
+    position: absolute;
+    left: -2px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+#down {
+    top: 176px;
+}
+
+.review-pop-up .img-pop-up {
+    position: absolute;
+    width: 49px;
+    height: 50px;
+    top: 0;
+    left: 88px;
+}
+
+.review-pop-up .group-4-pop-up {
+    position: absolute;
+    width: 41px;
+    height: 41px;
+    top: 6px;
+    left: 97px;
+}
+
+.review-pop-up .overlap-wrapper-pop-up {
+    position: absolute;
+    width: 32px;
+    height: 30px;
+    top: 0;
+    left: 69px;
+}
+
+/* logo certif 01*/
+.review-pop-up .div-wrapper-pop-up {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-size: 100% 100%;
+    left: -1px;
+}
+
+/* 01 dans le logo certif */
+.review-pop-up .text-wrapper-2-pop-up {
+    top: 8px;
+    left: 9px;
+    position: absolute;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: -0.6px;
+    line-height: normal;
+}
+
+.review-pop-up .overlap-2-pop-up {
+    position: absolute;
+    width: 247px;
+    height: 134px;
+    top: 186px;
+    left: 37px;
+}
+
+/* Image carré l'un dans l'autre bleu apre îcone */
+.review-pop-up .group-5-pop-up {
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    top: -4px;
+    left: 139px;
+}
+
+.review-pop-up .overlap-3-pop-up {
+    position: absolute;
+    width: 247px;
+    height: 121px;
+    top: 13px;
+    left: 0;
+}
+
+.review-pop-up .group-6-pop-up {
+    position: absolute;
+    width: 233px;
+    height: 79px;
+    top: 42px;
+    left: 0;
+}
+
+.review-pop-up .group-7-pop-up {
+    position: absolute;
+    width: 49px;
+    height: 52px;
+    top: 0;
+    left: 91px;
+}
+
+.review-pop-up .overlap-group-wrapper-pop-up {
+    position: absolute;
+    width: 28px;
+    height: 26px;
+    top: 37px;
+    left: 74px;
+}
+
+.review-pop-up .overlap-group-2-pop-up {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    left: -1px;
+    background-size: 100% 100%;
+}
+
+.review-pop-up .text-wrapper-3-pop-up {
+    top: 8px;
+    left: 9px;
+    position: absolute;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: -0.6px;
+    line-height: normal;
+}
+
+.review-pop-up .vector-pop-up {
+    width: 33px;
+    top: 0;
+    left: 214px;
+    position: absolute;
+    height: 63px;
+}
+
+.review-pop-up .text-wrapper-4-pop-up {
+    position: absolute;
+    top: 167px;
+    left: 43px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.review-pop-up .vector-2-pop-up {
+    width: 36px;
+    top: 77px;
+    left: 0;
+    position: absolute;
+    height: 63px;
+}
+
+.review-pop-up .group-8-pop-up {
+    position: absolute;
+    width: 66px;
+    height: 58px;
+    top: 99px;
+    left: 109px;
+}
+
+.review-pop-up .overlap-4-pop-up {
+    position: relative;
+    height: 58px;
+}
+
+.review .group-9-pop-up {
+    position: absolute;
+    width: 49px;
+    height: 50px;
+    top: 8px;
+    left: 17px;
+}
+
+.review-pop-up .group-10-pop-up {
+    position: absolute;
+    width: 28px;
+    height: 26px;
+    top: 0;
+    left: 0;
+}
+
+.review-pop-up .overlap-group-3-pop-up {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    left: -1px;
+    background-size: 100% 100%;
+}
+
+.review-pop-up .text-wrapper-5-pop-up {
+    top: 8px;
+    left: 9px;
+    position: absolute;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-weight: 800;
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: -0.6px;
+    line-height: normal;
+}
+
+.review-pop-up .ep-document-copy-pop-up {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 18px;
+    left: 24px;
+}
+
+/* FIN DU CODE DU PREMIER POP-UP*/
+
+/* DEBUT DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+.checking {
+    position: fixed;
+    margin: 0 auto;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    backdrop-filter: none;
+    width: 90%;
+    height: 30%;
+    border-radius: 22px;
+    background-color: var(--white);
+}
+
+.checking .loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid var(--text-color);
+    width: 60px;
+    height: 60px;
+    margin: 18 auto;
+    animation: rotation 0.7s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+.checking .text-wrapper-pop-up-chargement {
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    top: 0px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #903d2a;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30.8px;
+    white-space: nowrap;
+}
+
+.checking .div-pop-up-chargement {
+    position: relative;
+    margin: 3 auto;
+    width: fit-content;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 17px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+@media (max-width: 480px) {
+    .checking {
+        height: 30%;
+    }
+
+    .checking .loader {
+        margin-top: 8%;
+        margin-bottom: 10%;
+    }
+}
+
+/* FIN DU CODE DU DEUXIEME POP-UP == Chargement*/
+
+/* DEBUT DU CODE DU TROISIEME POP-UP == SUCCESS*/
+.pop-up-success-image {
+    position: relative;
+    margin: 8% 39%;
+}
+
+@media (max-width: 480px) {
+    #success-pop-up {
+        height: 30%;
+    }
+}
+
+/* FIN DU CODE DU TROISIEME POP-UP == SUCCESS*/
+
+
+/* DEBUT DU CODE DU QUATRIEME POP-UP == FORMULAIRE*/
+.form-pop-up {
+    position: fixed;
+    bottom: 0;
+    /* Le placer en bas de la page */
+    left: 0;
+    right: 0;
+    /* Étendre sur toute la largeur */
+    height: 53vh;
+    /* 45% de la hauteur de l'écran */
+    width: 100%;
+    /* 100% de la largeur de l'écran */
+    z-index: 5;
+    backdrop-filter: none;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    /* Pour disposer le contenu verticalement */
+    align-items: center;
+    /* Pour centrer le contenu horizontalement */
+    justify-content: center;
+    /* Pour centrer le contenu verticalement */
+    border-top-right-radius: 5%;
+    border-top-left-radius: 5%;
+}
+
+.page .group {
+    position: absolute;
+    width: 149px;
+    height: 74px;
+    top: 71px;
+    left: 121px;
+}
+
+.page .line {
+    position: relative;
+    width: 135px;
+    height: 4px;
+    top: 18px;
+    left: 128px;
+    background-color: var(--dark-grey-2);
+    border-radius: 100px;
+}
+
+
+
+.page .tell-us-who-you-are {
+    position: relative;
+    top: 8%;
+    margin: 0 auto;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 23.4px;
+}
+
+.page .p {
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #392a27;
+    font-size: 14px;
+    white-space: normal;
+    letter-spacing: 0;
+    line-height: normal;
+    margin: 0 auto;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.input-group {
+    width: 90%;
+    height: 12%;
+    margin: 0 auto;
+}
+
+.input-group .overlap-group::placeholder {
+    color: #92847b;
+}
+
+.input-group .overlap-group:focus {
+    outline: none;
+}
+
+.page .text-wrapper-4 {
+    position: absolute;
+    top: 1px;
+    left: 67px;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #92847b;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* telephone */
+.group-4 {
+    position: relative;
+    margin-bottom: -10%;
+    height: 10%;
+}
+
+.phone-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #efebe6;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.phone-input-wrapper {
+    min-height: 42px;
+    width: 90%;
+    height: 110%;
+    display: flex;
+    align-items: center;
+    background-color: #efebe6;
+    border-radius: 10px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 16%;
+}
+
+.phone-number {
+    padding-left: 5%;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 15px;
+}
+
+.phone-number::placeholder {
+    color: #92847b;
+}
+
+
+.text-wrapper-3 {
+    margin-left: 5%;
+    margin-right: 2%;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #92847b;
+    letter-spacing: 1px;
+}
+
+.page .text-wrapper-5 {
+    position: absolute;
+    top: 14px;
+    left: 11px;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #92847b;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.phone-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
+    background-color: #efebe6;
+    border-radius: 10px;
+}
+
+.input-group .overlap-group {
+    min-height: 42px;
+    margin-top: 15%;
+    width: 100%;
+    height: 100%;
+    background-color: #efebe6;
+    border-radius: 10px;
+    border: none;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 16px;
+    padding-left: 5%;
+    box-sizing: border-box;
+}
+
+.phone-input-group .text-input {
+    min-height: 42px;
+    flex-grow: 1;
+    background: transparent;
+    padding-left: 60px;
+    border: none;
+    outline: none;
+    font-family: "Inter-Medium", Helvetica;
+    font-weight: 500;
+    color: #92847b;
+    font-size: 15px;
+}
+
+.checkbox {
+    width: 2.5vh;
+    height: 2.5vh;
+}
+
+/*la check box div */
+.page .group-2 {
+    position: relative;
+    margin-top: 10vh;
+    margin-left: 8%;
+    padding-bottom: 9.5%;
+    display: flex;
+    align-items: center;
+}
+
+/* la check box */
+.custom-checkbox {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.rectangle {
+    width: 28px;
+    height: 28px;
+    background-color: #efebe6;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Ajoutez d'autres styles pour l'apparence non cochée si vous le souhaitez */
+}
+
+.hidden-checkbox:checked+.rectangle {
+    /* Changez l'apparence lorsque c'est cochée, par exemple : */
+    background-color: #392a27;
+    /* Un exemple de couleur, changez selon vos besoins */
+}
+
+.box {
+    padding-top: 80%;
+}
+
+/* FIN DU CODE DU POP - UP DE FORMULAIRE */
+
+/* DEBUT DU CODE De la roue */
+/* Sélecteur qui se trouve dans la roue*/
+.selecteur {
+    position: absolute;
+    width: 105px;
+    height: 116px;
+    margin-top: 114px;
+    margin-left: 124px;
+    z-index: 1;
+}
+
+/* Sélecteur qui se trouve dans le selecteur dynamique*/
+.logo {
+    width: 70px;
+    height: 70px;
+    margin-top: 143px;
+    margin-left: 143px;
+    position: absolute;
+}
+
+.wheel-container {
+    z-index: 2;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    margin-top: 7%;
+    width: 352px;
+    height: 352px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+/* Gestion du style des erreur de FORMULAIRE */
+.error {
+    font-size: 0.8rem;
+    margin-top: 20.25rem;
+    margin-bottom: 2%;
+}
+/* FIN DU CODE De la roue */
+
+/* Style du bouton */
+.button-pop-up {
+    margin: -25px auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 10%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+}
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button-wheel {
+    margin: 10% auto;
+    position: relative;
+    display: flex;
+    /* Utilisez l'affichage flex pour centrer verticalement et horizontalement */
+    justify-content: center;
+    /* Centre horizontalement */
+    align-items: center;
+    /* Centre verticalement */
+    width: 90%;
+    height: 7%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+}
+
+/* Style du texte dans le bouton */
+.button-text {
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+/* DEBUT DU CODE DE L'AFFICHAGE DU GAIN */
+
+@keyframes fall {
+
+    0%,
+    100% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+        z-index: 9999;
+    }
+
+    50% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 1;
+        z-index: 9999;
+    }
+}
+
+#winning-message {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 3rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#winning-message .winning-gif {
+    max-width: 75%;
+    /* Assurez-vous que l'image ne dépasse pas la largeur de l'écran */
+    max-height: 75%;
+    /* Assurez-vous que l'image ne dépasse pas la hauteur de l'écran */
+    margin: -20% auto;
+    z-index: 4;
+}
+
+#winning-message .winning-ombre {
+    margin-left: -11%;
+    margin-top: -4%;
+    z-index: 3;
+}
+
+@media screen and (min-width: 570px) {
+    #winning-message img {
+        max-width: 570px;
+        /* Définissez la largeur maximale que vous souhaitez au-delà de 570px */
+        max-height: none;
+        /* Annulez la hauteur maximale pour permettre l'ajustement */
+    }
+}
+
+.winning-slogan {
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #903d2a;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 50.4px;
+    margin-top: 10%;
+}
+
+.winning-slogan .winning-slogan-title {
+    font-size: 44px;
+}
+
+.winning-slogan .winning-slogan-text {
+    font-size: 25px;
+}
+
+.winning-linear-gardent {
+    margin: 5% auto;
+    width: 105px;
+    height: 5px;
+    background: linear-gradient(180deg, rgba(188, 132, 117, 0) 0%, rgb(188, 132, 117) 52.6%, rgba(188, 132, 117, 0) 100%);
+    opacity: 0.5;
+}
+
+.winning-info {
+    margin-top: 10%;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #392a27;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+/* FIN DU CODE DE L'AFFICHAGE DU GAIN */
+/* Debut du pop up Apres gain */
+.group-2-pop-up-apres-gain{
+    position: absolute;
+    width: 286px;
+    height: 300px;
+    top: -39%;
+    left: 8%;
+}
+.p-pop-up-apres-gain{
+    font-family: "Inter-SemiBold", Helvetica;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: #392A27;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 35%;
+}
+.group-pop-up-apres-gain{
+    position: relative;
+    width: 362px;
+    height: 0px;
+    margin-right: -4px;
+}
+.overlap-group-pop-up-apres-gain{
+    position: relative;
+    width: 358px;
+    height: 223px;
+    background-color: #ffffff;
+    border-radius: 22px;
+}
+.button-pop-up-apres-gain{
+    display: flex;
+    width: 90%;
+    height: 18%;
+    margin: 0px auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30%;
+    background-color: var(--text-color);
+    border-radius: 12px;
+    cursor: pointer; 
+    pointer-events: auto;
+}
+/* Fin du pop up Apres gain */
+
+/* DEBUT DU CODE DU FOOTER */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: var(--footer);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer .text-footer-1 {
+    position: relative;
+    width: 130px;
+    top: 10px;
+    left: 10%;
+    font-family: "Overpass-Medium", Helvetica;
+    font-weight: 500;
+    color: #425c5980;
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.footer .group {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 13px;
+    left: 202px;
+    border-radius: 2px;
+}
+
+.footer .overlap-group {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    top: -8px;
+    left: 49%;
+    background-image: url(./footer-logo.svg);
+    background-size: 100% 100%;
+}
+
+.footer .text-footer-2 {
+    position: relative;
+    width: 89px;
+    top: -110%;
+    left: 56%;
+    font-family: "Aclonica-Regular", Helvetica;
+    font-weight: 400;
+    color: #425c5980;
+    font-size: 13px;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* FIN DU CODE DU FOOTER */
+@media (max-width: 480px) {
+    #winning-message {
+        font-size: 2rem;
+    }
+}
+
+/* transition affichage du .p-pop-up */
+@keyframes slideUp {
+    from {
+      transform: translateY(100%); /* Commence en dehors de l'écran, en bas */
+      opacity: 0; /* Commence invisible */
+    }
+    to {
+      transform: translateY(0); /* Termine à sa position normale */
+      opacity: 1; /* Devient complètement visible */
+    }
+  }
+  @keyframes slideDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+  
+  .popup-hide-animation {
+    animation: slideDown 0.5s ease-in forwards;
+  }
+  .popup-animation {
+    animation: slideUp 0.5s ease-out forwards; /* Applique l'animation */
+  }
+  @media screen and (max-height: 600px) {
+    .form-pop-up{
+        height: 90vh;
+    }
+    .page .group-2 {
+        margin-top: 16vh;
+   }
+  }
+  
