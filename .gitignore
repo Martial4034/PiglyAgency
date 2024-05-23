@@ -2,7 +2,7 @@
 
 # Ignore les fichiers d'environnement
 **/.env
-
+**/.DS_Store
 # Ignore les dossiers node_modules dans tous les sous-dossiers
 **/node_modules/
 
