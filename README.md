@@ -7,12 +7,12 @@ Boostez la visibilité de votre restaurant avec **PiglyAgency**, une solution in
 **Ce dépôt contient l’ensemble du code source pour le site web multi-tenant de PiglyAgency, incluant tous les modules nécessaires pour une gestion complète et automatisée**:
 
 	- Dasboard-Client-FrontEnd : Interface client pour le suivi et la gestion des performances.
-	-	JeuxRoulette-FrontEnd : Frontend pour les jeux promotionnels intégrant une roulette.
-	-	VerificatorCadeaux : Outil pour la vérification des cadeaux et des promotions.
-	-	Dashboard-Client-Backend : Backend pour le tableau de bord client.
-	-	Qr-code-Cadeaux*: Gestion des QR codes pour les cadeaux.
-	-	Jeux-Backend : Backend pour les jeux et les interactions utilisateurs.
-	-	RedirectionShortURL : Service de redirection d’URL courte pour optimiser.
+	- JeuxRoulette-FrontEnd : Frontend pour les jeux promotionnels intégrant une roulette.
+	- VerificatorCadeaux : Outil pour la vérification des cadeaux et des promotions.
+	- Dashboard-Client-Backend : Backend pour le tableau de bord client.
+	- Qr-code-Cadeaux*: Gestion des QR codes pour les cadeaux.
+	- Jeux-Backend : Backend pour les jeux et les interactions utilisateurs.
+	- RedirectionShortURL : Service de redirection d’URL courte pour optimiser.
 
 Pour info, [PiglyAgency](https://piglyagency.fr/) c'est : 
 
@@ -34,11 +34,12 @@ Suivez-nous sur LinkedIn : [Pigly Agency sur LinkedIn](https://www.linkedin.com/
 
 Coté utilisateur qui déjeune dans le restaurant en question :
 
-- Un client mange dans un restaurant 
+- un client mange dans un restaurant 
 - il scanne un Qr-Code
 - il met un avis sur la fiche Google My Business du Restaurant
 - il gagne un cadeau (probabilité/validité/condition choisi par le restaurateur)
 - il reçoit par SMS son lien de Qr-Code
+
  <img src="https://i.imgur.com/CLCwxJn.gif" width="530" height="960" alt="Gif, montrant le fonctionnement de la roue">
 
 Le restaurant gagne des avis, donc de la visibilité, mais aussi fait revenir ses clients grâce aux cadeaux qu'il distribue. Enfin il peux avoir la data de la rentabilité de la campagne grâce à son accès à son Pannel-Admin.
