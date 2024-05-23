@@ -43,11 +43,11 @@ Coté utilisateur qui déjeune dans le restaurant en question :
 - il gagne un cadeau (probabilité/validité/condition choisi par le restaurateur)
 - il reçoit par SMS son lien de Qr-Code
 
-  [Gif, Experience Utilisateur](https://imgur.com/CLCwxJn)
+	[Gif, Experience Utilisateur](https://imgur.com/CLCwxJn)
   
 Le restaurant gagne des avis, donc de la visibilité, mais aussi fait revenir ses clients grâce aux cadeaux qu'il distribue. Enfin il peux avoir la data de la rentabilité de la campagne grâce à son accès à son Pannel-Admin.
   
-  <img src="https://i.imgur.com/DqzZxnz.png" width="530" height="960" alt="Slide pdf piglyagency">
+![Slide pdf piglyagency](https://i.imgur.com/DqzZxnz.png)
 
 # Devloppement
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)  ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)  ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34) ![OVH](https://img.shields.io/badge/ovh-%23123F6D.svg?style=for-the-badge&logo=ovh&logoColor=#123F6D) ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![VSCode](https://img.shields.io/badge/Visual_Studio-0078d7?style=for-the-badge&logo=visual%20studio&logoColor=white)
